@@ -3,7 +3,7 @@ class ViceBridge extends BridgeAbstract {
 
 	const NAME = 'Vice.com Topic Bridge';
 	const URI = 'https://vice.com';
-	const DESCRIPTION = 'Returns the newest posts from a topic across vice.com editions.';
+	const DESCRIPTION = 'Returns the newest posts for a topic from multiple vice.com editions.';
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array(array(
 			'topic' => array(
@@ -65,7 +65,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 				$item['content'] = (string)$feedItem->children('content', true);
 				$item['timestamp'] = strtotime((string)$feedItem->pubDate);
 				$item['categories'] = (array)$feedItem->category;
-				$item['guid'] = $guid;
+				$item['uid'] = $guid;
 				$item['uri'] = (string)$feedItem->link;
 				$item['enclosures'] = array((string)$feedItem->enclosure['url']);
 
