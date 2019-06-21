@@ -3,7 +3,7 @@ class ViceBridge extends BridgeAbstract {
 
 	const NAME = 'Vice.com Topic Bridge';
 	const URI = 'https://vice.com';
-	const DESCRIPTION = 'Returns the newest posts from a topic across vice.com editions.';
+	const DESCRIPTION = 'Returns the newest posts for a topic from multiple vice.com editions.';
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array(array(
 			'topic' => array(
