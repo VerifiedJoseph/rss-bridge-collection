@@ -6,7 +6,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [HaveIBeenPwnedApi](bridges/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email addrees.
 - [TzAnnounceArchive](bridges/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
 - [PhpDotNet](bridges/PhpDotNetBridge.php) - Returns news posts from php.net
-- [ViceTopic](bridges/ViceTopicBridge.php) - Returns the newest posts from a topic across vice.com editions.
+- [Vice](bridges/ViceBridge.php) - Returns the newest posts from a topic across vice.com editions.
 
 RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 

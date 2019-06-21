@@ -1,5 +1,5 @@
 <?php
-class ViceTopicBridge extends BridgeAbstract {
+class ViceBridge extends BridgeAbstract {
 
 	const NAME = 'Vice.com Topic Bridge';
 	const URI = 'https://vice.com';
