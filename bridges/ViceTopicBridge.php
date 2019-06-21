@@ -65,7 +65,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 				$item['content'] = (string)$feedItem->children('content', true);
 				$item['timestamp'] = strtotime((string)$feedItem->pubDate);
 				$item['categories'] = (array)$feedItem->category;
-				$item['guid'] = $guid;
+				$item['uid'] = $guid;
 				$item['uri'] = (string)$feedItem->link;
 				$item['enclosures'] = array((string)$feedItem->enclosure['url']);
 
