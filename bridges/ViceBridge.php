@@ -27,7 +27,6 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 	private $defaultEdition = 'en_us';
 	private $editions = array();
-	private $guids = array();
 
 	private $servedPostsFileName = 'servedPosts.file';
 	
@@ -63,16 +62,14 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 				
 				if (isset($servedPosts['posts'][$guid_sha1])) { // Post is in servedPosts.file.
 					
-					// Post is not same edition as served version, skip it.
+					// Post is not same edition as the first served version, skip it.
 					if ($servedPosts['posts'][$guid_sha1]['edition'] != $edition) {
 						continue;
 					}
 					
-				} else { // Post is not is servedPosts.file, add it.
+				} else { // Post is not in servedPosts.file, add it.
 					$servedPosts['posts'][$guid_sha1]['edition'] = $edition;
 				}
-				
-				$this->guids[] = $guid;
 
 				$item['title'] = (string)$feedItem->title;
 				$item['content'] = (string)$feedItem->children('content', true);
