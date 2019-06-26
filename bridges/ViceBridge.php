@@ -29,6 +29,8 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 	private $editions = array();
 	private $guids = array();
 
+	private $servedPostsFileName = 'servedPosts.file';
+	
 	public function collectData() {
 
 		if (!is_null($this->getInput('editions'))) {
@@ -41,6 +43,8 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 		}
 
+		$servedPosts = $this->loadServedPosts();
+		
 		foreach ($this->editions as $edition) {
 
 			$url = $this->getURI() . '/' . $edition . '/rss/topic/' . $this->getInput('topic');
@@ -55,10 +59,19 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 				$guid = (string)$feedItem->guid;
 
-				if (in_array($guid, $this->guids)) {
-					continue;
+				$guid_sha1 = sha1($guid);
+				
+				if (isset($servedPosts['posts'][$guid_sha1])) { // Post is in servedPosts.file.
+					
+					// Post is not same edition as served version, skip it.
+					if ($servedPosts['posts'][$guid_sha1]['edition'] != $edition) {
+						continue;
+					}
+					
+				} else { // Post is not is servedPosts.file, add it.
+					$servedPosts['posts'][$guid_sha1]['edition'] = $edition;
 				}
-
+				
 				$this->guids[] = $guid;
 
 				$item['title'] = (string)$feedItem->title;
@@ -76,6 +89,8 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 			}
 		}
 		$this->orderItems();
+
+		$this->saveServedPosts($servedPosts);
 	}
 
 	private function orderItems() {
@@ -99,4 +114,35 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 		return parent::getName();
 	}
+	
+	private function loadServedPosts() {
+
+		$handle = fopen($this->servedPostsFileName, 'r');
+		
+		if ($handle != false) {
+		
+			$contents = fread($handle, filesize($this->servedPostsFileName));
+			fclose($handle);
+
+			return json_decode($contents, true);
+		}
+
+		return array(
+			'posts' => array()
+		);
+
+	}
+
+	private function saveServedPosts($contents) {
+
+		$contents = json_encode($contents);
+
+		$handle = fopen($this->servedPostsFileName, 'w');
+
+		if ($handle != false) {
+			fwrite($handle, $contents);
+			fclose($handle);	
+		}
+	}
+	
 }
