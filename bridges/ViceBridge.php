@@ -28,7 +28,8 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 	private $defaultEdition = 'en_us';
 	private $editions = array();
 
-	private $servedPostsFileName = 'servedPosts.file';
+	private $cacheFolder = 'ViceBridgeCache';
+	private $cacheFilename = null; 
 	
 	public function collectData() {
 
@@ -42,7 +43,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 		}
 
-		$servedPosts = $this->loadServedPosts();
+		$servedPosts = $this->loadCache();
 		
 		foreach ($this->editions as $edition) {
 
@@ -60,14 +61,14 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 				$guid_sha1 = sha1($guid);
 				
-				if (isset($servedPosts['posts'][$guid_sha1])) { // Post is in servedPosts.file.
+				if (isset($servedPosts['posts'][$guid_sha1])) { // Post is in cache.
 					
 					// Post is not same edition as the first served version, skip it.
 					if ($servedPosts['posts'][$guid_sha1]['edition'] != $edition) {
 						continue;
 					}
 					
-				} else { // Post is not in servedPosts.file, add it.
+				} else { // Post is not in cache, add it.
 					$servedPosts['posts'][$guid_sha1]['edition'] = $edition;
 				}
 
@@ -80,14 +81,22 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 				$item['enclosures'] = array((string)$feedItem->enclosure['url']);
 
 				$a = (array)$feedItem->children('dc', true);
-				$item['author'] = implode(', ', $a['creator']);
+				
+				if (is_array($a['creator'])) {
+					$item['author'] = implode(', ', $a['creator']);
+				
+				} else {
+
+					$item['author'] = $a['creator'];
+				
+				}
 
 				$this->items[] = $item;
 			}
 		}
 		$this->orderItems();
 
-		$this->saveServedPosts($servedPosts);
+		$this->saveCache($servedPosts);
 	}
 
 	private function orderItems() {
@@ -112,13 +121,18 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 		return parent::getName();
 	}
 	
-	private function loadServedPosts() {
+	private function loadCache() {
 
-		$handle = fopen($this->servedPostsFileName, 'r');
+		if (is_dir($this->cacheFolder) === false) {
+			mkdir($this->cacheFolder, 0700);
+		}
+
+		$path = $this->cacheFolder . '/' . $this->cacheName();
+		$handle = fopen($path, 'r');
 		
 		if ($handle != false) {
 		
-			$contents = fread($handle, filesize($this->servedPostsFileName));
+			$contents = fread($handle, filesize($path));
 			fclose($handle);
 
 			return json_decode($contents, true);
@@ -130,16 +144,27 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 	}
 
-	private function saveServedPosts($contents) {
+	private function saveCache($contents) {
 
 		$contents = json_encode($contents);
 
-		$handle = fopen($this->servedPostsFileName, 'w');
+		$path = $this->cacheFolder . '/' . $this->cacheName();
+		$handle = fopen($path, 'w');
 
 		if ($handle != false) {
 			fwrite($handle, $contents);
 			fclose($handle);	
 		}
+	}
+	
+	private function cacheName() {
+
+		if (is_null($this->cacheFilename)) {
+			$this->cacheFilename = hash('sha256', $this->getInput('topic') . $this->getInput('editions'));
+		}
+
+		return $this->cacheFilename;
+
 	}
 	
 }
