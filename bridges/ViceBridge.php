@@ -160,7 +160,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 	private function cacheName() {
 
 		if (is_null($this->cacheFilename)) {
-			$this->cacheFilename = hash('sha256', $this->getInput('topic') . $this->getInput('editions'));
+			$this->cacheFilename = hash('sha256', $this->getInput('topic') . $this->getInput('editions')) . '.cache';
 		}
 
 		return $this->cacheFilename;
