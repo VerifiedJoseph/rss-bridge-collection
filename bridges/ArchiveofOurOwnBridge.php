@@ -65,7 +65,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	const CACHE_TIMEOUT = 3600;
 
 	private $feedName = '';
-	private $feedURI = '';
 
 	private $userProfile = array(
 		'works' => array(
