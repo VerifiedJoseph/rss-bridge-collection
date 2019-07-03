@@ -100,14 +100,13 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	public function collectData() {
 		$item = array();
 
+		$html = getSimpleHTMLDOM($this->getURI())
+			or returnServerError('Could not request: ' . $this->getURI());
+		
 		// Feed for works, series, bookmarks or gifts from a user's profile.
 		if ($this->queriedContext === 'User Profile') {
 
 			$content_type = $this->getInput('c');
-			$this->feedURI = self::URI . '/users/' . $this->getInput('u') . $this->userProfile[$content_type]['url'];
-
-			$html = getSimpleHTMLDOM($this->feedURI)
-				or returnServerError('Could not request: ' . $this->feedURI);
 
 			// Feed name
 			if(preg_match($this->userProfile[$content_type]['regex'], trim($html->find('h2.heading', 0)->plaintext), $matches)) {
@@ -132,11 +131,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		// Feed for works of a specific series.
 		if ($this->queriedContext === 'Series') {
-
-			$this->feedURI = self::URI . '/series/' . $this->getInput('s');
-
-			$html = getSimpleHTMLDOM($this->feedURI)
-				or returnServerError('Could not request: ' . $this->feedURI);
 
 			$seriesTitle = $html->find('h2.heading', 0)->plaintext;
 			$SeriesCreator = $html->find('dl.series.meta.group', 0)->children(1)->plaintext;
@@ -165,11 +159,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		// Feed for works of a specific tag.
 		if ($this->queriedContext === 'Tag') {
 
-			$this->feedURI = self::URI . '/tags/' . $this->getInput('t') . '/works';
-
-			$html = getSimpleHTMLDOM($this->feedURI)
-				or returnServerError('Could not request: ' . $this->feedURI);
-
 			$TagTitle = $html->find('h2.heading', 0)->children(0)->plaintext;
 
 			$this->feedName = $TagTitle . ' - Tag';
@@ -191,11 +180,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		// Feed for chapters of a specific work.
 		if ($this->queriedContext === 'Chapters') {
-
-			$this->feedURI = self::URI . '/works/' . $this->getInput('w') . '/navigate';
-
-			$html = getSimpleHTMLDOM($this->feedURI)
-				or returnServerError('Could not request: ' . $this->feedURI);
 
 			$heading = $html->find('h2.heading', 0);
 
@@ -236,12 +220,22 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	}
 
 	public function getURI() {
-
-		if ($this->feedURI) {
-			return $this->feedURI;
+		
+		switch($this->queriedContext) {
+			case 'User Profile': 
+				return self::URI . '/users/' . $this->getInput('u') 
+					. $this->userProfile[$this->getInput('c')]['url'];
+			case 'Series': 
+				return self::URI . '/series/' 
+					. $this->getInput('s'); 
+			case 'Tag': 
+				return self::URI . '/tags/' 
+					. $this->getInput('t') . '/works'; 
+			case 'Chapters': 
+				return self::URI . '/works/' 
+					. $this->getInput('w') . '/navigate'; 
+			default: return parent::getURI();
 		}
-
-		return parent::getURI();
 	}
 
 	private function processMetadata($name) {
