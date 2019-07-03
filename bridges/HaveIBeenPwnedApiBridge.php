@@ -4,7 +4,7 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 	const URI = 'https://haveibeenpwned.com';
 	const DESCRIPTION = 'Returns list of Pwned websites for an email addrees';
 	const MAINTAINER = 'VerifiedJoseph';
-	
+
 	const PARAMETERS = array(
 		'Pwned websites' => array(),
 		'Pwned Account' => array(
@@ -47,7 +47,7 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 			$this->orderBreaches();
 			$this->createItems();
 		}
-		
+
 		if ($this->queriedContext === 'Pwned Account') {
 			$this->feedName .= ' - Pwned Account - ' . $this->getInput('email');
 

@@ -29,8 +29,8 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 	private $editions = array();
 
 	private $cacheFolder = 'ViceBridgeCache';
-	private $cacheFilename = null; 
-	
+	private $cacheFilename = null;
+
 	public function collectData() {
 
 		if (!is_null($this->getInput('editions'))) {
@@ -44,7 +44,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 		}
 
 		$servedPosts = $this->loadCache();
-		
+
 		foreach ($this->editions as $edition) {
 
 			$url = $this->getURI() . '/' . $edition . '/rss/topic/' . $this->getInput('topic');
@@ -60,14 +60,14 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 				$guid = (string)$feedItem->guid;
 
 				$guid_sha1 = sha1($guid);
-				
+
 				if (isset($servedPosts['posts'][$guid_sha1])) { // Post is in cache.
-					
+
 					// Post is not same edition as the first served version, skip it.
 					if ($servedPosts['posts'][$guid_sha1]['edition'] != $edition) {
 						continue;
 					}
-					
+
 				} else { // Post is not in cache, add it.
 					$servedPosts['posts'][$guid_sha1]['edition'] = $edition;
 				}
@@ -81,14 +81,14 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 				$item['enclosures'] = array((string)$feedItem->enclosure['url']);
 
 				$a = (array)$feedItem->children('dc', true);
-				
+
 				if (is_array($a['creator'])) {
 					$item['author'] = implode(', ', $a['creator']);
-				
+
 				} else {
 
 					$item['author'] = $a['creator'];
-				
+
 				}
 
 				$this->items[] = $item;
@@ -114,13 +114,12 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 	public function getName() {
 
 		if (!is_null($this->getInput('topic'))) {
-
 			return $this->getInput('topic') . ' - Vice.com (' . implode(', ', $this->editions) . ')';
 		}
 
 		return parent::getName();
 	}
-	
+
 	private function loadCache() {
 
 		if (is_dir($this->cacheFolder) === false) {
@@ -129,9 +128,9 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 		$path = $this->cacheFolder . '/' . $this->cacheName();
 		$handle = fopen($path, 'r');
-		
+
 		if ($handle != false) {
-		
+
 			$contents = fread($handle, filesize($path));
 			fclose($handle);
 
@@ -153,10 +152,10 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 
 		if ($handle != false) {
 			fwrite($handle, $contents);
-			fclose($handle);	
+			fclose($handle);
 		}
 	}
-	
+
 	private function cacheName() {
 
 		if (is_null($this->cacheFilename)) {
@@ -166,5 +165,4 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au',
 		return $this->cacheFilename;
 
 	}
-	
 }
