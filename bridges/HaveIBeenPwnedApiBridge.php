@@ -31,27 +31,22 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 	const CACHE_TIMEOUT = 3600;
 
 	private $breaches = array();
-	private $feedName = 'Have I Been Pwned';
 
 	public function collectData() {
 
 		$url = self::URI;
 		
 		if ($this->queriedContext === 'Pwned websites') {
-			$this->feedName .= ' - Pwned Websites';
-
 			$url .= '/api/v2/breaches';
 		}
 
 		if ($this->queriedContext === 'Pwned Account') {
-			$this->feedName .= ' - Pwned Account - ' . $this->getInput('email');
-
 			$url .= '/api/v2/breachedaccount/' . urlencode($this->getInput('email'));
 		}
 		
 		$header = array(
 			'User-Agent: Have I Been Pwned RSS-bridge'
-		);
+		); 
 		
 		$json = getContents($url, $header) or
 			returnServerError('Could not request: ' . $json);
@@ -59,13 +54,17 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 		$this->handleJson($json);
 		$this->orderBreaches();
 		$this->createItems();
-		
+
 	}
 
 	public function getName() {
 
-		if ($this->feedName) {
-			return $this->feedName;
+		if ($this->queriedContext === 'Pwned websites') {
+			return 'Pwned Websites - Have I Been Pwned';
+		}
+
+		if ($this->queriedContext === 'Pwned Account') {
+			return $this->getInput('email') . ' - Pwned Account - Have I Been Pwned';	
 		}
 
 		return parent::getName();
