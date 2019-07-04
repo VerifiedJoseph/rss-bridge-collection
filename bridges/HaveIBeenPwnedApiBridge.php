@@ -92,11 +92,16 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 			$item['breachDate'] = strtotime($breach['BreachDate']);
 			$item['uri'] = self::URI . '/PwnedWebsites#' . $breach['Name'];
 
-			$item['content'] = '<p>' . $breach['Description'] . '<p>';
-			$item['content'] .= '<p>Breach date:<br>' . date('d F Y', $item['breachDate']) . '</p>';
-			$item['content'] .= '<p>Date added to HIBP:<br>' . date('d F Y', $item['dateAdded']) . '</p>';
-			$item['content'] .= '<p>Compromised accounts:<br>' . number_format($breach['PwnCount']) . '</p>';
-			$item['content'] .= '<p>Compromised data:<br>' . implode(', ', $breach['DataClasses']) . '</p>';
+			$breachDate = date('d F Y', $item['breachDate']);
+			$dateAdded = date('d F Y', $item['dateAdded']);
+			$compromisedAccounts = number_format($breach['PwnCount']);
+			$compromisedData = implode(', ', $breach['DataClasses']);
+<p>{$breach['Description']}<p>
+<p><strong>Breach date:</strong> {$breachDate}<br>
+<strong>Date added to HIBP:</strong> {$dateAdded}<br>
+<strong>Compromised accounts:</strong> {$compromisedAccounts}<br>
+<strong>Compromised data:</strong> {$compromisedData}</p>
+EOD;
 
 			$this->breaches[] = $item;
 		}
