@@ -35,31 +35,23 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 
 	public function collectData() {
 
+		$url = self::URI;
+		
 		if ($this->queriedContext === 'Pwned websites') {
 			$this->feedName .= ' - Pwned Websites';
 
-			$json = getContents(self::URI . '/api/v2/breaches');
-
-			if($json === false)
-				returnServerError('Could not request: ' . self::URI . '/api/v2/breaches');
-
-			$this->handleJson($json);
-			$this->orderBreaches();
-			$this->createItems();
+			$url .= '/api/v2/breaches';
 		}
 
 		if ($this->queriedContext === 'Pwned Account') {
 			$this->feedName .= ' - Pwned Account - ' . $this->getInput('email');
 
-			$json = getContents(self::URI . '/api/v2/breachedaccount/' . $this->getInput('email'));
-
-			if($json === false)
-				returnServerError('Could not request: ' . self::URI . '/api/v2/breachedaccount/' . $this->getInput('email'));
-
-			$this->handleJson($json);
-			$this->orderBreaches();
-			$this->createItems();
+			$url .= '/api/v2/breachedaccount/' . urlencode($this->getInput('email'));
 		}
+		$this->handleJson($json);
+		$this->orderBreaches();
+		$this->createItems();
+		
 	}
 
 	public function getName() {
