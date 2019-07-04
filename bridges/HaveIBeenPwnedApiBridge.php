@@ -76,7 +76,7 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 			return self::URI . '/PwnedWebsites';
 		}
 
-		return parent::getName();
+		return parent::getURI();
 	}
 
 	/**
