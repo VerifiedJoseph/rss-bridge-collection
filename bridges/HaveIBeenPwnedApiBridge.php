@@ -48,6 +48,14 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 
 			$url .= '/api/v2/breachedaccount/' . urlencode($this->getInput('email'));
 		}
+		
+		$header = array(
+			'User-Agent: Have I Been Pwned RSS-bridge'
+		);
+		
+		$json = getContents($url, $header) or
+			returnServerError('Could not request: ' . $json);
+		
 		$this->handleJson($json);
 		$this->orderBreaches();
 		$this->createItems();
