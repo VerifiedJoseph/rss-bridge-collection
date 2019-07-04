@@ -69,6 +69,15 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 
 		return parent::getName();
 	}
+	
+	public function getURI() {
+
+		if ($this->queriedContext === 'Pwned websites') {
+			return self::URI . '/PwnedWebsites';
+		}
+
+		return parent::getName();
+	}
 
 	/**
 	 * Handle JSOn returned by API, create breaches array
