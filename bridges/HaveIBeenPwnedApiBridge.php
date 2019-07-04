@@ -31,44 +31,52 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 	const CACHE_TIMEOUT = 3600;
 
 	private $breaches = array();
-	private $feedName = 'Have I Been Pwned';
 
 	public function collectData() {
 
+		$url = self::URI;
+
 		if ($this->queriedContext === 'Pwned websites') {
-			$this->feedName .= ' - Pwned Websites';
-
-			$json = getContents(self::URI . '/api/v2/breaches');
-
-			if($json === false)
-				returnServerError('Could not request: ' . self::URI . '/api/v2/breaches');
-
-			$this->handleJson($json);
-			$this->orderBreaches();
-			$this->createItems();
+			$url .= '/api/v2/breaches';
 		}
 
 		if ($this->queriedContext === 'Pwned Account') {
-			$this->feedName .= ' - Pwned Account - ' . $this->getInput('email');
-
-			$json = getContents(self::URI . '/api/v2/breachedaccount/' . $this->getInput('email'));
-
-			if($json === false)
-				returnServerError('Could not request: ' . self::URI . '/api/v2/breachedaccount/' . $this->getInput('email'));
-
-			$this->handleJson($json);
-			$this->orderBreaches();
-			$this->createItems();
+			$url .= '/api/v2/breachedaccount/' . urlencode($this->getInput('email'));
 		}
+
+		$header = array(
+			'User-Agent: Have I Been Pwned RSS-bridge'
+		);
+
+		$json = getContents($url, $header) or
+			returnServerError('Could not request: ' . $json);
+
+		$this->handleJson($json);
+		$this->orderBreaches();
+		$this->createItems();
+
 	}
 
 	public function getName() {
 
-		if ($this->feedName) {
-			return $this->feedName;
+		if ($this->queriedContext === 'Pwned websites') {
+			return 'Pwned Websites - Have I Been Pwned';
+		}
+
+		if ($this->queriedContext === 'Pwned Account') {
+			return $this->getInput('email') . ' - Pwned Account - Have I Been Pwned';
 		}
 
 		return parent::getName();
+	}
+
+	public function getURI() {
+
+		if ($this->queriedContext === 'Pwned websites') {
+			return self::URI . '/PwnedWebsites';
+		}
+
+		return parent::getURI();
 	}
 
 	/**
@@ -84,11 +92,40 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 			$item['breachDate'] = strtotime($breach['BreachDate']);
 			$item['uri'] = self::URI . '/PwnedWebsites#' . $breach['Name'];
 
-			$item['content'] = '<p>' . $breach['Description'] . '<p>';
-			$item['content'] .= '<p>Breach date:<br>' . date('d F Y', $item['breachDate']) . '</p>';
-			$item['content'] .= '<p>Date added to HIBP:<br>' . date('d F Y', $item['dateAdded']) . '</p>';
-			$item['content'] .= '<p>Compromised accounts:<br>' . number_format($breach['PwnCount']) . '</p>';
-			$item['content'] .= '<p>Compromised data:<br>' . implode(', ', $breach['DataClasses']) . '</p>';
+			$breachDate = date('d F Y', $item['breachDate']);
+			$dateAdded = date('d F Y', $item['dateAdded']);
+			$compromisedAccounts = number_format($breach['PwnCount']);
+			$compromisedData = implode(', ', $breach['DataClasses']);
+			$breachTypes = '';
+
+			if ($breach['IsVerified'] === false) {
+				$breachTypes .= 'Unverified breach, may be sourced from elsewhere.<br/>';
+			}
+
+			if ($breach['IsFabricated'] === true) {
+				$breachTypes .= 'Fabricated breach, likely not legitimate.<br/>';
+			}
+
+			if ($breach['IsSensitive'] === true) {
+				$breachTypes .= 'Sensitive breach, not publicly searchable.<br/>';
+			}
+
+			if ($breach['IsRetired'] === true) {
+				$breachTypes .= 'Retired breach, removed from system.<br/>';
+			}
+
+			if ($breach['IsSpamList'] === true) {
+				$breachTypes .= ' Spam List, used for spam marketing.';
+			}
+
+			$item['content'] = <<<EOD
+<p>{$breach['Description']}<p>
+<p>{$breachTypes}</p>
+<p><strong>Breach date:</strong> {$breachDate}<br>
+<strong>Date added to HIBP:</strong> {$dateAdded}<br>
+<strong>Compromised accounts:</strong> {$compromisedAccounts}<br>
+<strong>Compromised data:</strong> {$compromisedData}</p>
+EOD;
 
 			$this->breaches[] = $item;
 		}
