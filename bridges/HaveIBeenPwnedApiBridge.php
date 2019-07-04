@@ -35,7 +35,7 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 	public function collectData() {
 
 		$url = self::URI;
-		
+
 		if ($this->queriedContext === 'Pwned websites') {
 			$url .= '/api/v2/breaches';
 		}
@@ -43,14 +43,14 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 		if ($this->queriedContext === 'Pwned Account') {
 			$url .= '/api/v2/breachedaccount/' . urlencode($this->getInput('email'));
 		}
-		
+
 		$header = array(
 			'User-Agent: Have I Been Pwned RSS-bridge'
-		); 
-		
+		);
+
 		$json = getContents($url, $header) or
 			returnServerError('Could not request: ' . $json);
-		
+
 		$this->handleJson($json);
 		$this->orderBreaches();
 		$this->createItems();
@@ -64,12 +64,12 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 		}
 
 		if ($this->queriedContext === 'Pwned Account') {
-			return $this->getInput('email') . ' - Pwned Account - Have I Been Pwned';	
+			return $this->getInput('email') . ' - Pwned Account - Have I Been Pwned';
 		}
 
 		return parent::getName();
 	}
-	
+
 	public function getURI() {
 
 		if ($this->queriedContext === 'Pwned websites') {
@@ -97,27 +97,27 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 			$compromisedAccounts = number_format($breach['PwnCount']);
 			$compromisedData = implode(', ', $breach['DataClasses']);
 			$breachTypes = '';
-			
+
 			if ($breach['IsVerified'] === false) {
 				$breachTypes .= 'Unverified breach, may be sourced from elsewhere.<br/>';
 			}
-			
+
 			if ($breach['IsFabricated'] === true) {
 				$breachTypes .= 'Fabricated breach, likely not legitimate.<br/>';
 			}
-			
+
 			if ($breach['IsSensitive'] === true) {
 				$breachTypes .= 'Sensitive breach, not publicly searchable.<br/>';
 			}
-			
+
 			if ($breach['IsRetired'] === true) {
 				$breachTypes .= 'Retired breach, removed from system.<br/>';
 			}
-			
+
 			if ($breach['IsSpamList'] === true) {
 				$breachTypes .= ' Spam List, used for spam marketing.';
 			}
-			
+
 			$item['content'] = <<<EOD
 <p>{$breach['Description']}<p>
 <p>{$breachTypes}</p>
