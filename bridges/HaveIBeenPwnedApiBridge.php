@@ -96,7 +96,31 @@ class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 			$dateAdded = date('d F Y', $item['dateAdded']);
 			$compromisedAccounts = number_format($breach['PwnCount']);
 			$compromisedData = implode(', ', $breach['DataClasses']);
+			$breachTypes = '';
+			
+			if ($breach['IsVerified'] === false) {
+				$breachTypes .= 'Unverified breach, may be sourced from elsewhere.<br/>';
+			}
+			
+			if ($breach['IsFabricated'] === true) {
+				$breachTypes .= 'Fabricated breach, likely not legitimate.<br/>';
+			}
+			
+			if ($breach['IsSensitive'] === true) {
+				$breachTypes .= 'Sensitive breach, not publicly searchable.<br/>';
+			}
+			
+			if ($breach['IsRetired'] === true) {
+				$breachTypes .= 'Retired breach, removed from system.<br/>';
+			}
+			
+			if ($breach['IsSpamList'] === true) {
+				$breachTypes .= ' Spam List, used for spam marketing.';
+			}
+			
+			$item['content'] = <<<EOD
 <p>{$breach['Description']}<p>
+<p>{$breachTypes}</p>
 <p><strong>Breach date:</strong> {$breachDate}<br>
 <strong>Date added to HIBP:</strong> {$dateAdded}<br>
 <strong>Compromised accounts:</strong> {$compromisedAccounts}<br>
