@@ -127,14 +127,16 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		}
 
 		$path = $this->cacheFolder . '/' . $this->cacheName();
-		$handle = fopen($path, 'r');
+		
+		if (file_exists($path)) {
+			$handle = fopen($path, 'r');
 
-		if ($handle != false) {
+			if ($handle != false) {
+				$contents = fread($handle, filesize($path));
+				fclose($handle);
 
-			$contents = fread($handle, filesize($path));
-			fclose($handle);
-
-			return json_decode($contents, true);
+				return json_decode($contents, true);
+			}
 		}
 
 		return array(
