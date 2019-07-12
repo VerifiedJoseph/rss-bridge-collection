@@ -23,7 +23,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		)
 	);
 
-	const CACHE_TIMEOUT = 3600; // 1 hour
+	const CACHE_TIMEOUT = 1800; // 30 minutes
 
 	private $editions = array();
 	private $supportedEditions = array(
