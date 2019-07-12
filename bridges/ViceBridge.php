@@ -25,27 +25,50 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 
 	const CACHE_TIMEOUT = 3600; // 1 hour
 
-	private $defaultEdition = 'en_us';
 	private $editions = array();
+	private $supportedEditions = array(
+		'en_us',
+		'en_uk',
+		'en_ca',
+		'en_asia',
+		'en_au',
+		'en_in',
+		'fr_ca',
+		'ro',
+		'rs',
+		'es',
+		'de_ch',
+		'es_latam', 
+		'de_at', 
+		'be',
+		'pt_br',
+		'fr',
+		'fr_be',
+		'de',
+		'gr',
+		'id_id',
+		'it',
+		'jp',
+		'nl',
+		'pt',
+		'ar'
+	);
 
 	private $cacheFolder = 'ViceBridgeCache';
 	private $cacheFilename = null;
 
 	public function collectData() {
 
-		if (!is_null($this->getInput('editions'))) {
-
-			$this->editions = preg_split('/[\s,]+/', $this->getInput('editions'));
-
-		} else {
-
-			$this->editions[] = $this->defaultEdition;
-
-		}
+		$this->editions = preg_split('/[\s,]+/', $this->getInput('editions'));
+		$this->editions = array_unique($this->editions);
 
 		$servedPosts = $this->loadCache();
 
 		foreach ($this->editions as $edition) {
+
+			if (!in_array($edition, $this->supportedEditions)) {
+				returnServerError('Unsupport edition value: ' . $edition);
+			}
 
 			$url = $this->getURI() . '/' . $edition . '/rss/topic/' . $this->getInput('topic');
 
