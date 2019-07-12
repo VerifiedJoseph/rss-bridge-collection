@@ -38,8 +38,8 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		'rs',
 		'es',
 		'de_ch',
-		'es_latam', 
-		'de_at', 
+		'es_latam',
+		'de_at',
 		'be',
 		'pt_br',
 		'fr',
@@ -63,13 +63,13 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		$this->editions = array_unique($this->editions);
 
 		$cache = $this->loadCache();
-		
+
 		foreach ($this->editions as $edition) {
-			
+
 			if (!in_array($edition, $this->supportedEditions)) {
 				returnServerError('Unsupport edition value: ' . $edition);
 			}
-			
+
 			$url = $this->getURI() . '/' . $edition . '/rss/topic/' . $this->getInput('topic');
 
 			$feed = getContents($url)
@@ -99,9 +99,9 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 				$item['content'] = (string)$feedItem->children('content', true);
 				$item['timestamp'] = strtotime((string)$feedItem->pubDate);
 				$item['categories'] = (array)$feedItem->category;
-				
+
 				array_unshift($item['categories'], 'Edition: ' . $edition);
-				
+
 				$item['uid'] = $guid;
 				$item['uri'] = (string)$feedItem->link;
 				$item['enclosures'] = array((string)$feedItem->enclosure['url']);
@@ -153,7 +153,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		}
 
 		$path = $this->cacheFolder . '/' . $this->cacheName();
-		
+
 		if (file_exists($path)) {
 			$handle = fopen($path, 'r');
 
