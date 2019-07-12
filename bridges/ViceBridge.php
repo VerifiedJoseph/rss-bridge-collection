@@ -62,14 +62,14 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		$this->editions = preg_split('/[\s,]+/', $this->getInput('editions'));
 		$this->editions = array_unique($this->editions);
 
-		$servedPosts = $this->loadCache();
-
+		$cache = $this->loadCache();
+		
 		foreach ($this->editions as $edition) {
-
+			
 			if (!in_array($edition, $this->supportedEditions)) {
 				returnServerError('Unsupport edition value: ' . $edition);
 			}
-
+			
 			$url = $this->getURI() . '/' . $edition . '/rss/topic/' . $this->getInput('topic');
 
 			$feed = getContents($url)
@@ -84,15 +84,15 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 
 				$guid_sha1 = sha1($guid);
 
-				if (isset($servedPosts['posts'][$guid_sha1])) { // Post is in cache.
+				if (isset($cache['posts'][$guid_sha1])) { // Post is in cache.
 
 					// Post is not same edition as the first served version, skip it.
-					if ($servedPosts['posts'][$guid_sha1]['edition'] != $edition) {
+					if ($cache['posts'][$guid_sha1]['edition'] != $edition) {
 						continue;
 					}
 
 				} else { // Post is not in cache, add it.
-					$servedPosts['posts'][$guid_sha1]['edition'] = $edition;
+					$cache['posts'][$guid_sha1]['edition'] = $edition;
 				}
 
 				$item['title'] = (string)$feedItem->title;
@@ -122,7 +122,9 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		}
 		$this->orderItems();
 
-		$this->saveCache($servedPosts);
+		$this->saveCache($cache);
+	}
+
 	public function getName() {
 
 		if (!is_null($this->getInput('topic'))) {
