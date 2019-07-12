@@ -27,6 +27,33 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 
 	private $defaultEdition = 'en_us';
 	private $editions = array();
+	private $supportedEditions = array(
+		'en_us',
+		'en_uk',
+		'en_ca',
+		'en_asia',
+		'en_au',
+		'en_in',
+		'fr_ca',
+		'ro',
+		'rs',
+		'es',
+		'de_ch',
+		'es_latam', 
+		'de_at', 
+		'be',
+		'pt_br',
+		'fr',
+		'fr_be',
+		'de',
+		'gr',
+		'id_id',
+		'it',
+		'jp',
+		'nl',
+		'pt',
+		'ar'
+	);
 
 	private $cacheFolder = 'ViceBridgeCache';
 	private $cacheFilename = null;
@@ -46,6 +73,10 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		$servedPosts = $this->loadCache();
 
 		foreach ($this->editions as $edition) {
+
+			if (!in_array($edition, $this->supportedEditions)) {
+				returnServerError('Unsupport edition value: ' . $edition);
+			}
 
 			$url = $this->getURI() . '/' . $edition . '/rss/topic/' . $this->getInput('topic');
 
