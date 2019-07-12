@@ -60,6 +60,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 	public function collectData() {
 
 		$this->editions = preg_split('/[\s,]+/', $this->getInput('editions'));
+		$this->editions = array_unique($this->editions);
 
 		$servedPosts = $this->loadCache();
 
