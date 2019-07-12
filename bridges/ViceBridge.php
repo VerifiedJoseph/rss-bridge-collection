@@ -38,8 +38,8 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		'rs',
 		'es',
 		'de_ch',
-		'es_latam', 
-		'de_at', 
+		'es_latam',
+		'de_at',
 		'be',
 		'pt_br',
 		'fr',
@@ -62,7 +62,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		$this->editions = preg_split('/[\s,]+/', $this->getInput('editions'));
 		$this->editions = array_unique($this->editions);
 
-		$servedPosts = $this->loadCache();
+		$cache = $this->loadCache();
 
 		foreach ($this->editions as $edition) {
 
@@ -84,24 +84,24 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 
 				$guid_sha1 = sha1($guid);
 
-				if (isset($servedPosts['posts'][$guid_sha1])) { // Post is in cache.
+				if (isset($cache['posts'][$guid_sha1])) { // Post is in cache.
 
 					// Post is not same edition as the first served version, skip it.
-					if ($servedPosts['posts'][$guid_sha1]['edition'] != $edition) {
+					if ($cache['posts'][$guid_sha1]['edition'] != $edition) {
 						continue;
 					}
 
 				} else { // Post is not in cache, add it.
-					$servedPosts['posts'][$guid_sha1]['edition'] = $edition;
+					$cache['posts'][$guid_sha1]['edition'] = $edition;
 				}
 
 				$item['title'] = (string)$feedItem->title;
 				$item['content'] = (string)$feedItem->children('content', true);
 				$item['timestamp'] = strtotime((string)$feedItem->pubDate);
 				$item['categories'] = (array)$feedItem->category;
-				
+
 				array_unshift($item['categories'], 'Edition: ' . $edition);
-				
+
 				$item['uid'] = $guid;
 				$item['uri'] = (string)$feedItem->link;
 				$item['enclosures'] = array((string)$feedItem->enclosure['url']);
@@ -122,7 +122,16 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		}
 		$this->orderItems();
 
-		$this->saveCache($servedPosts);
+		$this->saveCache($cache);
+	}
+
+	public function getName() {
+
+		if (!is_null($this->getInput('topic'))) {
+			return $this->getInput('topic') . ' - Vice.com (' . implode(', ', $this->editions) . ')';
+		}
+
+		return parent::getName();
 	}
 
 	private function orderItems() {
@@ -137,15 +146,6 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 
 	}
 
-	public function getName() {
-
-		if (!is_null($this->getInput('topic'))) {
-			return $this->getInput('topic') . ' - Vice.com (' . implode(', ', $this->editions) . ')';
-		}
-
-		return parent::getName();
-	}
-
 	private function loadCache() {
 
 		if (is_dir($this->cacheFolder) === false) {
@@ -153,7 +153,7 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		}
 
 		$path = $this->cacheFolder . '/' . $this->cacheName();
-		
+
 		if (file_exists($path)) {
 			$handle = fopen($path, 'r');
 
