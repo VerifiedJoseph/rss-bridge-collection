@@ -123,6 +123,13 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 		$this->orderItems();
 
 		$this->saveCache($servedPosts);
+	public function getName() {
+
+		if (!is_null($this->getInput('topic'))) {
+			return $this->getInput('topic') . ' - Vice.com (' . implode(', ', $this->editions) . ')';
+		}
+
+		return parent::getName();
 	}
 
 	private function orderItems() {
@@ -135,15 +142,6 @@ Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es 
 
 		array_multisort($sort, SORT_DESC, $this->items);
 
-	}
-
-	public function getName() {
-
-		if (!is_null($this->getInput('topic'))) {
-			return $this->getInput('topic') . ' - Vice.com (' . implode(', ', $this->editions) . ')';
-		}
-
-		return parent::getName();
 	}
 
 	private function loadCache() {
