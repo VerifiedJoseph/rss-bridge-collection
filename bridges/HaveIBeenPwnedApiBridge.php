@@ -1,4 +1,11 @@
 <?php
+/*
+	This bridge uses version 2 of the Have I Been Pwned API, which was discontinued on August 18, 2019. 
+	The code has been left as a reference and should not be used.
+	
+	Authentication and the Have I Been Pwned API (Blog post announcing the changes)
+	https://www.troyhunt.com/authentication-and-the-have-i-been-pwned-api/
+*/
 class HaveIBeenPwnedApiBridge extends BridgeAbstract {
 	const NAME = 'Have I Been Pwned (HIBP) API Bridge';
 	const URI = 'https://haveibeenpwned.com';
