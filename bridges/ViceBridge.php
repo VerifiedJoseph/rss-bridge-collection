@@ -193,6 +193,23 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 		}
 	}
 
+	private function articleInCache($id, $edition) {
+
+		if (isset($this->cache['posts'][$id]) && $this->cache['posts'][$id]['edition'] !== $edition) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private function addToCache($id, $edition) {
+
+		$this->cache['posts'][$id] = array(
+			'edition' => $edition
+		);
+
+	}
+
 	private function cacheName() {
 
 		if (is_null($this->cacheFilename)) {
