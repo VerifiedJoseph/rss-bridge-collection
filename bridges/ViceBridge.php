@@ -7,7 +7,7 @@ class ViceBridge extends BridgeAbstract {
 
 	const NAME = 'Vice.com Topic Bridge';
 	const URI = 'https://vice.com';
-	const DESCRIPTION = 'Returns the newest posts for a topic from multiple vice.com editions.';
+	const DESCRIPTION = 'Returns the newest articles for a topic from multiple vice.com editions.';
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array(array(
 			'topic' => array(
@@ -21,7 +21,8 @@ class ViceBridge extends BridgeAbstract {
 				'type' => 'text',
 				'exampleValue' => 'en_us, en_uk',
 				'title' => 'A comma separated list of vice.com editions. 
-Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es de_ch, es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
+Supported values: en_us, en_uk, en_ca, en_asia, en_au, en_in, fr_ca, ro, rs, es de_ch,
+es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				'required' => true
 			)
 		)
