@@ -1,7 +1,10 @@
 <?php
 /*
-	This bridge uses a custom cache system that tracks articles via their unique ID. The unique ID prevents the same article appearing more than once if it is returned by multiple edition feeds.
-	The custom cache files are saved in a folder called 'ViceBridgeCache' in the main rss-bridge folder. Name and location of the cache folder can be changed by modifying the '$cacheFolder' variable.  
+	This bridge uses a custom cache system that tracks articles via their unique ID.
+	The unique ID prevents the same article appearing more than once if it is returned by multiple edition feeds.
+	
+	The custom cache files are saved in a folder called 'ViceBridgeCache' in the main rss-bridge folder 
+	The name and location of the cache folder can be changed by modifying the '$cacheFolder' variable.
 */
 class ViceBridge extends BridgeAbstract {
 
