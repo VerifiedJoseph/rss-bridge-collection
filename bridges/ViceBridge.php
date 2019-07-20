@@ -67,7 +67,8 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 
 	public function collectData() {
 
-		$this->editions = preg_split('/[\s,]+/', $this->getInput('editions'));
+		$this->editions = explode(',', $this->getInput('editions'));
+		$this->editions = array_map('trim', $this->editions);
 		$this->editions = array_unique($this->editions);
 
 		$cache = $this->loadCache();
