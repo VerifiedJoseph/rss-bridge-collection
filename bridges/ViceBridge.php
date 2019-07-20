@@ -64,6 +64,9 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 
 	private $cacheFolder = 'ViceBridgeCache';
 	private $cacheFilename = null;
+	private $cache = array(
+		'posts' => array()
+	);
 
 	public function collectData() {
 
@@ -71,7 +74,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 		$this->editions = array_map('trim', $this->editions);
 		$this->editions = array_unique($this->editions);
 
-		$cache = $this->loadCache();
+		$this->loadCache();
 
 		foreach ($this->editions as $edition) {
 
@@ -90,19 +93,14 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				$item = array();
 
 				$guid = (string)$feedItem->guid;
-
 				$guid_sha1 = sha1($guid);
 
-				if (isset($cache['posts'][$guid_sha1])) { // Post is in cache.
-
-					// Post is not same edition as the first served version, skip it.
-					if ($cache['posts'][$guid_sha1]['edition'] != $edition) {
-						continue;
-					}
-
-				} else { // Post is not in cache, add it.
-					$cache['posts'][$guid_sha1]['edition'] = $edition;
+				// Article in cache, skip this version from a different edition.
+				if ($this->articleInCache($guid_sha1, $edition)) {
+					continue;
 				}
+
+				$this->addToCache($guid_sha1, $edition);
 
 				$item['title'] = (string)$feedItem->title;
 				$item['content'] = (string)$feedItem->children('content', true);
@@ -131,7 +129,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 		}
 		$this->orderItems();
 
-		$this->saveCache($cache);
+		$this->saveCache();
 	}
 
 	public function getName() {
@@ -167,22 +165,18 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 			$handle = fopen($path, 'r');
 
 			if ($handle != false) {
+
 				$contents = fread($handle, filesize($path));
 				fclose($handle);
 
-				return json_decode($contents, true);
+				$this->cache = json_decode($contents, true);
 			}
 		}
-
-		return array(
-			'posts' => array()
-		);
-
 	}
 
-	private function saveCache($contents) {
+	private function saveCache() {
 
-		$contents = json_encode($contents);
+		$contents = json_encode($this->cache);
 
 		$path = $this->cacheFolder . '/' . $this->cacheName();
 		$handle = fopen($path, 'w');
