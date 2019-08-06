@@ -7,6 +7,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [TzAnnounceArchive](bridges/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
 - [PhpDotNet](bridges/PhpDotNetBridge.php) - Returns news posts from php.net
 - [Vice](bridges/ViceBridge.php) - Returns the newest posts for a topic from multiple vice.com editions.
+- [LGBTQ Nation](bridges/LgbtqNationBridge.php) - Returns newest articles by category, tag or author.
 
 RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 
