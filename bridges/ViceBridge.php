@@ -85,7 +85,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 			$url = $this->getURI() . '/' . $edition . '/rss/topic/' . $this->getInput('topic');
 
 			$feed = getContents($url)
-			or returnServerError('Could not request: ' . $url);
+				or returnServerError('Could not request: ' . $url);
 
 			$xml = simplexml_load_string($feed);
 
@@ -93,14 +93,13 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				$item = array();
 
 				$guid = (string)$feedItem->guid;
-				$guid_sha1 = sha1($guid);
 
 				// Article in cache, skip this version from a different edition.
-				if ($this->articleInCache($guid_sha1, $edition)) {
+				if ($this->articleInCache($guid, $edition)) {
 					continue;
 				}
 
-				$this->addToCache($guid_sha1, $edition);
+				$this->addToCache($guid, $edition);
 
 				$item['title'] = (string)$feedItem->title;
 				$item['content'] = (string)$feedItem->children('content', true);
@@ -128,7 +127,6 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 			}
 		}
 		$this->orderItems();
-
 		$this->saveCache();
 	}
 
@@ -150,7 +148,6 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 		}
 
 		array_multisort($sort, SORT_DESC, $this->items);
-
 	}
 
 	private function loadCache() {
@@ -165,7 +162,6 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 			$handle = fopen($path, 'r');
 
 			if ($handle != false) {
-
 				$contents = fread($handle, filesize($path));
 				fclose($handle);
 
@@ -212,6 +208,5 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 		}
 
 		return $this->cacheFilename;
-
 	}
 }
