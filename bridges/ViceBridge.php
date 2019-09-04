@@ -153,7 +153,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 	private function loadCache() {
 
 		if (is_dir($this->cacheFolder) === false) {
-			mkdir($this->cacheFolder, 0755);
+			mkdir($this->cacheFolder, 0775);
 		}
 
 		$path = $this->cacheFolder . '/' . $this->cacheName();
