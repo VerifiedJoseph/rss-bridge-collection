@@ -19,6 +19,7 @@ class ApacheFriendsBridge extends FeedExpander {
 		// Fix broken URLs
 		$item['uri'] = str_replace('http://blog.url.com', self::URI, $item['uri']);
 		$item['content'] = defaultLinkTo($item['content'], $this->getURI());
+		$item['content'] = str_replace('http://', 'https://', $item['content']);
 
 		// Change author from 'Article Author' to 'Apache Friends'.
 		$item['author'] = 'Apache Friends';
