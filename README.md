@@ -19,3 +19,5 @@ RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge]
 - [Telegram](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/TelegramBridge.php) - Returns newest posts from a public Telegram channel.
 - [InternetArchive](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/InternetArchiveBridge.php) - Returns newest uploads, posts and more from an account.
 - [CuriousCat](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/CuriousCatBridge.php) - Returns list of newest questions and answers for a user profile.
+
+View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
