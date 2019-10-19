@@ -20,7 +20,7 @@ RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge]
 - [InternetArchive](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/InternetArchiveBridge.php) - Returns newest uploads, posts and more from an account.
 - [CuriousCat](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/CuriousCatBridge.php) - Returns list of newest questions and answers for a user profile.
 
-View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
+View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) or [pull requests](https://github.com/RSS-Bridge/rss-bridge/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3AVerifiedJoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
 
 ## License
 
