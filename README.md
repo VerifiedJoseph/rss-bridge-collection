@@ -10,6 +10,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [The Daily Beast](bridges/TheDailyBeastBridge.php) - Returns newest articles (summary only) by category or keyword.
 - [LGBTQ Nation](bridges/LgbtqNationBridge.php) - Returns newest articles by category, tag or author.
 - [Apache Friends](bridges/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
+- [The Guardian Cartoons](bridges/TheGuardianCartoonsBridge.php) - Returns the newest cartoons from The Guardian.
 
 RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 
