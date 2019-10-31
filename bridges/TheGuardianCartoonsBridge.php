@@ -53,7 +53,7 @@ class TheGuardianCartoonsBridge extends FeedExpander {
 
 		$item['content'] = <<<EOD
 <img src="{$imageUrl}"><p>{$description}</p>
-EOD; 
+EOD;
 
 		// Get categories
 		$categories = explode(',', $articleHtml->find('meta[name="keywords"]', 0)->content);
