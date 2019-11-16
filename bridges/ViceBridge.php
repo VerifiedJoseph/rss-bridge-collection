@@ -87,7 +87,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 			$feed = getContents($url)
 				or returnServerError('Could not request: ' . $url);
 
-			$xml = simplexml_load_string($feed);
+			$xml = new SimpleXMLElement($feed);
 
 			foreach ($xml->channel->item as $feedItem) {
 				$item = array();
