@@ -87,7 +87,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 			$feed = getContents($url)
 				or returnServerError('Could not request: ' . $url);
 
-			$xml = new SimpleXMLElement($feed);
+			$xml = simplexml_load_string($feed);
 
 			foreach ($xml->channel->item as $feedItem) {
 				$item = array();
@@ -106,7 +106,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				$item['timestamp'] = strtotime((string)$feedItem->pubDate);
 				$item['categories'] = (array)$feedItem->category;
 
-				array_unshift($item['categories'], $edition);
+				array_unshift($item['categories'], 'Edition: ' . $edition);
 
 				$item['uid'] = $guid;
 				$item['uri'] = (string)$feedItem->link;
@@ -115,11 +115,12 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				$a = (array)$feedItem->children('dc', true);
 
 				if (is_array($a['creator'])) {
-					$item['author'] = implode(', ', array_unique($a['creator']));
-				}
+					$item['author'] = implode(', ', $a['creator']);
 
-				if (is_string($a['creator'])) {
+				} else {
+
 					$item['author'] = $a['creator'];
+
 				}
 
 				$this->items[] = $item;
