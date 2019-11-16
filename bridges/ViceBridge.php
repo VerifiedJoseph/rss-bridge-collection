@@ -106,7 +106,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				$item['timestamp'] = strtotime((string)$feedItem->pubDate);
 				$item['categories'] = (array)$feedItem->category;
 
-				array_unshift($item['categories'], 'Edition: ' . $edition);
+				array_unshift($item['categories'], $edition);
 
 				$item['uid'] = $guid;
 				$item['uri'] = (string)$feedItem->link;
