@@ -115,12 +115,11 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				$a = (array)$feedItem->children('dc', true);
 
 				if (is_array($a['creator'])) {
-					$item['author'] = implode(', ', $a['creator']);
+					$item['author'] = implode(', ', array_unique($a['creator']));
+				}
 
-				} else {
-
+				if (is_string($a['creator'])) {
 					$item['author'] = $a['creator'];
-
 				}
 
 				$this->items[] = $item;
