@@ -6,7 +6,7 @@ class FullFactElectionLiveBridge extends BridgeAbstract {
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array();
 
-	const CACHE_TIMEOUT = 1800; // 30 mins
+	const CACHE_TIMEOUT = 900; // 15 mins
 
 	public function collectData() {
 
