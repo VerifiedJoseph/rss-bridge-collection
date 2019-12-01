@@ -6,7 +6,7 @@
 	The custom cache files are saved in a folder called 'ViceBridgeCache' in the main rss-bridge folder
 	The name and location of the cache folder can be changed by modifying the '$cacheFolder' variable.
 */
-class ViceBridge extends BridgeAbstract {
+class ViceTopicBridge extends BridgeAbstract {
 
 	const NAME = 'Vice.com Topic Bridge';
 	const URI = 'https://vice.com';
