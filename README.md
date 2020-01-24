@@ -12,6 +12,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [Apache Friends](bridges/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
 - [The Guardian Cartoons](bridges/TheGuardianCartoonsBridge.php) - Returns the newest cartoons from The Guardian.
 - [Full Fact Election Live](bridges/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
+- [CA Certificate Extract](bridges/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
 
 RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 
