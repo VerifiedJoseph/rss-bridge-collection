@@ -56,8 +56,10 @@ class TheGuardianCartoonsBridge extends FeedExpander {
 EOD;
 
 		// Get categories
-		$categories = explode(',', $articleHtml->find('meta[name="keywords"]', 0)->content);
-		$item['categories'] = array_map('trim', $categories);
+		if ($articleHtml->find('meta[name="keywords"]', 0)) {
+			$categories = explode(',', $articleHtml->find('meta[name="keywords"]', 0)->content);
+			$item['categories'] = array_map('trim', $categories);	
+		}
 
 		$item['enclosures'][] = $imageUrl;
 
