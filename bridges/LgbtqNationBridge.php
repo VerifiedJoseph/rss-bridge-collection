@@ -45,11 +45,8 @@ class LgbtqNationBridge extends FeedExpander {
 			$script->outertext = '';
 		}
 
-		$imageSrc = $articleHtml->find('div.single-entry-thumb > img', 0)->src;
-		$imageSrc = str_replace(parse_url($imageSrc, PHP_URL_QUERY), '', $imageSrc);
-
 		$item['content'] = $content->innertext;
-		$item['enclosures'][] = $imageSrc;
+		$item['enclosures'][] = $articleHtml->find('meta[property="og:image"]', 0)->content;
 
 		if ($articleHtml->find('div.entry-categories.col-sm-4 > a', 0)) {
 			$item['categories'][] = $articleHtml->find('div.entry-categories.col-sm-4 > a', 0)->plaintext;
