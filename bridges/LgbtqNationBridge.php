@@ -52,11 +52,11 @@ class LgbtqNationBridge extends FeedExpander {
 		$item['enclosures'][] = $imageSrc;
 
 		if ($articleHtml->find('div.entry-categories.col-sm-4 > a', 0)) {
-			$item['categories'][] = $articleHtml->find('div.entry-categories.col-sm-4 > a', 0)->plaintext;	
+			$item['categories'][] = $articleHtml->find('div.entry-categories.col-sm-4 > a', 0)->plaintext;
 		}
 
 		foreach ($articleHtml->find('div.entry-tags.col-sm-8 > a') as $a) {
-			$item['categories'][] = $a->plaintext;
+			$item['categories'][] = htmlspecialchars($a->plaintext);
 		}
 
 		return $item;
