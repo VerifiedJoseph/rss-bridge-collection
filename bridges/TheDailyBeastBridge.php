@@ -44,9 +44,17 @@ class TheDailyBeastBridge extends BridgeAbstract {
 
 			$item['title'] = $articleHtml->find('meta[property="og:title"]', 0)->content;
 
-			if ($articleHtml->find('article.members-only', 0)) {
-				$item['title'] .= ' [Paywall]';
+			if ($articleHtml->find('script[type="application/ld+json"]', 0)) {
+				$SchemaData = json_decode($articleHtml->find('script[type="application/ld+json"]', 0)->innertext);
+
+				if (isset($SchemaData->isAccessibleForFree)) {
+					$item['title'] .= ' [Paywall]';
+				}
 			}
+
+			/*if ($articleHtml->find('article.members-only', 0)) {
+				$item['title'] .= ' [Paywall]';
+			}*/
 
 			$item['author'] = $articleHtml->find('meta[name="authors"]', 0)->content;
 			$item['timestamp'] = $articleHtml->find('meta[property="article:published_time"]', 0)->content;
