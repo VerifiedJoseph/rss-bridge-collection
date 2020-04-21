@@ -45,9 +45,9 @@ class TheDailyBeastBridge extends BridgeAbstract {
 			$item['title'] = $articleHtml->find('meta[property="og:title"]', 0)->content;
 
 			if ($articleHtml->find('script[type="application/ld+json"]', 0)) {
-				$SchemaData = json_decode($articleHtml->find('script[type="application/ld+json"]', 0)->innertext);
+				$schemaData = json_decode($articleHtml->find('script[type="application/ld+json"]', 0)->innertext);
 
-				if (isset($SchemaData->isAccessibleForFree)) {
+				if (isset($schemaData->isAccessibleForFree)) {
 					$item['title'] .= ' [Paywall]';
 				}
 			}
