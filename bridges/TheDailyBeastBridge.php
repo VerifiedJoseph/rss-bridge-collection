@@ -21,6 +21,14 @@ class TheDailyBeastBridge extends BridgeAbstract {
 				'exampleValue' => 'lgbt',
 			),
 		),
+		'By Author' => array(
+			'a' => array(
+				'name' => 'Author',
+				'type' => 'text',
+				'required' => true,
+				'exampleValue' => 'donald-kirk',
+			),
+		),
 	);
 
 	const CACHE_TIMEOUT = 3600; // 1 hour
@@ -28,11 +36,16 @@ class TheDailyBeastBridge extends BridgeAbstract {
 	private $feedName = '';
 
 	public function collectData() {
-
 		$html = getSimpleHTMLDOM($this->getURI())
 			or returnServerError('Could not request: ' . $this->getURI());
 
-		$this->feedName = $html->find('h2.WrapHeader__title', 0)->plaintext;
+		if ($html->find('h2.WrapHeader__title', 0)) {
+			$this->feedName = $html->find('h2.WrapHeader__title', 0)->plaintext;
+		}
+
+		if ($html->find('h4.Byline__name', 0)) { // By Author
+			$this->feedName = $html->find('h4.Byline__name', 0)->plaintext;
+		}
 
 		foreach ($html->find('article') as $article) {
 			$item = array();
@@ -51,10 +64,6 @@ class TheDailyBeastBridge extends BridgeAbstract {
 					$item['title'] .= ' [Paywall]';
 				}
 			}
-
-			/*if ($articleHtml->find('article.members-only', 0)) {
-				$item['title'] .= ' [Paywall]';
-			}*/
 
 			$item['author'] = $articleHtml->find('meta[name="authors"]', 0)->content;
 			$item['timestamp'] = $articleHtml->find('meta[property="article:published_time"]', 0)->content;
@@ -82,12 +91,13 @@ EOD;
 				return self::URI . '/category/' . $this->getInput('c');
 			case 'By Keyword':
 				return self::URI . '/keyword/' . $this->getInput('k');
+			case 'By Author':
+				return self::URI . '/author/' . $this->getInput('a');
 			default: return parent::getURI();
 		}
 	}
 
 	public function getName() {
-
 		if (!empty($this->feedName)) {
 			return $this->feedName . ' - The Daily Beast';
 		}
