@@ -10,6 +10,10 @@ RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge]
 - [CuriousCat](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/CuriousCatBridge.php) - Returns list of newest questions and answers for a user profile.
 - [ScribdBridge](https://github.com/VerifiedJoseph/rss-bridge/blob/master/bridges/ScribdBridge.php) - Returns documents uploaded by a user.
 
+View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) or [pull requests](https://github.com/RSS-Bridge/rss-bridge/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3AVerifiedJoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
+
+---
+
 RSS Bridges I've written that are ***not*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 
 - [ArchiveofOurOwn](bridges/ArchiveofOurOwnBridge.php) - Returns fanfiction by user, series, tag, or chapters.
@@ -23,8 +27,6 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [The Guardian Cartoons](bridges/TheGuardianCartoonsBridge.php) - Returns the newest cartoons from The Guardian.
 - [Full Fact Election Live](bridges/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
 - [CA Certificate Extract](bridges/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
-
-View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) or [pull requests](https://github.com/RSS-Bridge/rss-bridge/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3AVerifiedJoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
 
 ## License
 
