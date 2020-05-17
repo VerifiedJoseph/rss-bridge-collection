@@ -33,7 +33,35 @@ class TheDailyBeastBridge extends BridgeAbstract {
 
 	const CACHE_TIMEOUT = 3600; // 1 hour
 
+	private $categoryUrlRegex = '/thedailybeast\.com\/category\/([\w-]+)/';
+	private $keywordUrlRegex = '/thedailybeast\.com\/keyword\/([\w-]+)/';
+	private $authorUrlRegex = '/thedailybeast\.com\/author\/([\w-]+)/';
+
 	private $feedName = '';
+
+	public function detectParameters($url) {
+		$params = array();
+
+		if(preg_match($this->categoryUrlRegex, $url, $matches)) {
+			$params['context'] = 'By Category';
+			$params['c'] = $matches[1];
+			return $params;
+		}
+
+		if(preg_match($this->keywordUrlRegex, $url, $matches)) {
+			$params['context'] = 'By Keyword';
+			$params['k'] = $matches[1];
+			return $params;
+		}
+
+		if(preg_match($this->authorUrlRegex, $url, $matches)) {
+			$params['context'] = 'By Author';
+			$params['a'] = $matches[1];
+			return $params;
+		}
+
+		return null;
+	}
 
 	public function collectData() {
 		$html = getSimpleHTMLDOM($this->getURI())
