@@ -10,7 +10,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'name' => 'username',
 				'type' => 'text',
 				'required' => true,
-				'title' => 'Username',
 			),
 			'c' => array(
 				'name' => 'content',
@@ -29,7 +28,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'name' => 'Series ID',
 				'type' => 'text',
 				'required' => true,
-				'title' => 'Series ID',
 			),
 		),
 		'Tag' => array(
@@ -37,7 +35,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'name' => 'Tag',
 				'type' => 'text',
 				'required' => true,
-				'title' => 'Tag',
 			),
 		),
 		'Chapters' => array(
@@ -45,7 +42,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'name' => 'Work ID',
 				'type' => 'text',
 				'required' => true,
-				'title' => 'Work ID',
 			),
 		),
 		'global' => array(
