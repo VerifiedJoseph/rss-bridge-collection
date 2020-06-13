@@ -60,7 +60,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	const CACHE_TIMEOUT = 3600;
 
 	private $feedName = '';
-
 	private $userProfile = array(
 		'works' => array(
 			'url' => '/works',
@@ -89,8 +88,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		),
 	);
 
-	private $currentWork;
-
 	public function collectData() {
 		$item = array();
 
@@ -99,7 +96,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		
 		// Feed for works, series, bookmarks or gifts from a user's profile.
 		if ($this->queriedContext === 'User Profile') {
-
 			$content_type = $this->getInput('c');
 
 			// Feed name
@@ -108,16 +104,14 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 			}
 
 			foreach($html->find($this->userProfile[$content_type]['liClass']) as $work) {
-				$this->currentWork = $work;
+				$item['title'] = $this->processWorkTitle($work);
+				$item['author'] = $this->processWorkAuthor($work);
+				$item['timestamp'] = $this->processWorkTimestamp($work);
+				$item['uri'] = $this->processWorkUri($work);
 
-				$item['title'] = $this->processMetadata('title');
-				$item['author'] = $this->processMetadata('author');
-				$item['timestamp'] = $this->processMetadata('timestamp');
-				$item['uri'] = $this->processMetadata('uri');
-
-				$item['content'] = $this->processContent();
-				$item['content'] .= $this->processStats();
-				$item['categories'] = $this->processTags();
+				$item['content'] = $this->processContent($work);
+				$item['content'] .= $this->processStats($work);
+				$item['categories'] = $this->processTags($work);
 
 				$this->items[] = $item;
 			}
@@ -125,7 +119,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		// Feed for works of a specific series.
 		if ($this->queriedContext === 'Series') {
-
 			$seriesTitle = $html->find('h2.heading', 0)->plaintext;
 			$SeriesCreator = $html->find('dl.series.meta.group', 0)->children(1)->plaintext;
 			$SeriesCreatorPath = self::URI . $html->find('dl.series.meta.group', 0)->children(1)->children(0)->href;
@@ -133,16 +126,14 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 			$this->feedName = $seriesTitle . ' (Series By ' . $SeriesCreator . ')';
 
 			foreach($html->find('li.work.blurb.group') as $work) {
-				$this->currentWork = $work;
+				$item['title'] = $this->processWorkTitle($work);
+				$item['author'] = $this->processWorkAuthor($work);
+				$item['timestamp'] = $this->processWorkTimestamp($work);
+				$item['uri'] = $this->processWorkUri($work);
 
-				$item['title'] = $this->processMetadata('title');
-				$item['author'] = $this->processMetadata('author');
-				$item['timestamp'] = $this->processMetadata('timestamp');
-				$item['uri'] = $this->processMetadata('uri');
-
-				$item['content'] = $this->processContent();
-				$item['content'] .= $this->processStats();
-				$item['categories'] = $this->processTags();
+				$item['content'] = $this->processContent($work);
+				$item['content'] .= $this->processStats($work);
+				$item['categories'] = $this->processTags($work);
 
 				$this->items[] = $item;
 			}
@@ -152,21 +143,17 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		// Feed for works of a specific tag.
 		if ($this->queriedContext === 'Tag') {
-
 			$TagTitle = $html->find('h2.heading', 0)->children(0)->plaintext;
-
 			$this->feedName = $TagTitle . ' - Tag';
 
 			foreach($html->find('li.work.blurb.group') as $work) {
-				$this->currentWork = $work;
+				$item['title'] = $this->processWorkTitle($work);
+				$item['author'] = $this->processWorkAuthor($work);
+				$item['timestamp'] = $this->processWorkTimestamp($work);
+				$item['uri'] = $this->processWorkUri($work);
 
-				$item['title'] = $this->processMetadata('title');
-				$item['author'] = $this->processMetadata('author');
-				$item['timestamp'] = $this->processMetadata('timestamp');
-				$item['uri'] = $this->processMetadata('uri');
-
-				$item['content'] = $this->processContent();
-				$item['categories'] = $this->processTags();
+				$item['content'] = $this->processContent($work);
+				$item['categories'] = $this->processTags($work);
 
 				$this->items[] = $item;
 			}
@@ -174,9 +161,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		// Feed for chapters of a specific work.
 		if ($this->queriedContext === 'Chapters') {
-
 			$heading = $html->find('h2.heading', 0);
-
 			$workTitle = $heading->children(0)->plaintext;
 
 			$authors = array();
@@ -232,61 +217,51 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		}
 	}
 
-	private function processMetadata($name) {
+	private function processWorkTitle($work) {
+		$heading = $work->find('h4.heading', 0);
+		return htmlspecialchars_decode($heading->find('a', 0)->plaintext, ENT_QUOTES);
+	}
+	
+	private function processWorkAuthor($work) {
+		$heading = $work->find('h4.heading', 0);
+		$authors = array();
 
-		$heading = $this->currentWork->find('h4.heading', 0);
-
-		switch($name) {
-			case 'title':
-
-				return htmlspecialchars_decode($heading->find('a', 0)->plaintext, ENT_QUOTES);
-
-			break;
-			case 'author':
-
-				$authors = array();
-
-				foreach($heading->find('a[rel=author]') as $a) {
-					$authors[] = htmlspecialchars_decode($a->plaintext, ENT_QUOTES);
-				}
-
-				return implode(', ', $authors);
-
-			break;
-			case 'timestamp':
-
-				if ($this->getInput('c') === 'bookmarks') {
-					return strtotime($this->currentWork->find('div.user.module.group > p.datetime', 0)->plaintext);
-				}
-
-				return strtotime($this->currentWork->find('p.datetime', 0)->plaintext);
-
-			break;
-			case 'uri':
-
-				return self::URI . $heading->find('a', 0)->href;
-
-			break;
-			default: return null;
+		foreach($heading->find('a[rel=author]') as $author) {
+			$authors[] = htmlspecialchars_decode($author->plaintext, ENT_QUOTES);
 		}
+
+		return implode(', ', $authors);
+	}
+	
+	private function processWorkTimestamp($work) {
+
+		if ($this->getInput('c') === 'bookmarks') {
+			return strtotime($work->find('div.user.module.group > p.datetime', 0)->plaintext);
+		}
+
+		return strtotime($work->find('p.datetime', 0)->plaintext);
+	}
+	
+	private function processWorkUri($work) {
+		$heading = $work->find('h4.heading', 0);
+		return self::URI . $heading->find('a', 0)->href;
 	}
 
-	private function processContent() {
-
+	private function processContent($work) {
 		$content = '';
 		$authors = '';
 		$fandoms = '';
 
 		// Description
-		if ($this->currentWork->find('blockquote', 0)) {
-			$content .= trim($this->currentWork->find('blockquote', 0)->innertext);
+		if ($work->find('blockquote', 0)) {
+			$content .= trim($work->find('blockquote', 0)->innertext);
 		}
 
 		// Series
-		if ($this->currentWork->find('ul.series', 0)) {
+		if ($work->find('ul.series', 0)) {
 			$series = '';
 
-			foreach($this->currentWork->find('ul.series li') as  $s) {
+			foreach($work->find('ul.series li') as  $s) {
 				$part = $s->children(0)->plaintext;
 				$name = $s->children(1)->plaintext;
 				$link = self::URI . $s->children(1)->href;
@@ -297,14 +272,14 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		}
 
 		// Authors
-		foreach($this->currentWork->find('h4.heading a[rel=author]') as $a) {
+		foreach($work->find('h4.heading a[rel=author]') as $a) {
 			$authors  .= '<br><a href="' . self::URI . $a->href . '">' . htmlspecialchars_decode($a->plaintext, ENT_QUOTES) . '</a>';
 		}
 
 		$content .= '<p>Authors:' . $authors . '</p>';
 
 		// Fandoms
-		foreach($this->currentWork->find('h5.fandoms.heading a') as $fandom) {
+		foreach($work->find('h5.fandoms.heading a') as $fandom) {
 			$fandoms .= '<br><a target="_blank" href="' . self::URI . $fandom->href . '">' . $fandom->innertext . '</a>';
 		}
 
@@ -313,13 +288,12 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		return $content;
 	}
 
-	private function processTags() {
-
+	private function processTags($work) {
 		$maxTags = 15;
 		$tagCount = 0;
 		$tags = array();
 
-		foreach($this->currentWork->find('ul.tags li') as $tag) {
+		foreach($work->find('ul.tags li') as $tag) {
 			if ($tag->class === 'warnings') {
 				continue;
 			}
@@ -336,15 +310,12 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		return $tags;
 	}
 
-	private function processStats() {
-
+	private function processStats($work) {
 		$noNumberFormatting = array('language','words', 'chapters');
-
 		$stats = '';
 
 		if (($this->queriedContext === 'User Profile' && $this->getInput('c') != 'series') || $this->queriedContext === 'Series') {
-
-			$dl = $this->currentWork->find('dl', 0);
+			$dl = $work->find('dl', 0);
 
 			foreach($dl->find('dd') as $stat) {
 				$value = $stat->plaintext;
@@ -361,7 +332,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	}
 
 	private function fixDateOrder() {
-
 		$sort = array();
 
 		foreach ($this->items as $key => $item) {
