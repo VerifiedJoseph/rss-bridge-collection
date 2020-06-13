@@ -162,7 +162,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		// Feed for chapters of a specific work.
 		if ($this->queriedContext === 'Chapters') {
 			$heading = $html->find('h2.heading', 0);
-			$workTitle = $heading->children(0)->plaintext;
+			$this->feedName = $heading->children(0)->plaintext;
 
 			$authors = array();
 			foreach($heading->find('a[rel=author]') as $a) {
@@ -170,8 +170,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 			}
 
 			$workCreator = implode(', ', $authors);
-
-			$this->feedName = $workTitle;
 
 			foreach($html->find('ol.chapter.index.group li') as $chapter) {
 				$date = str_replace(array('(', ')'), array(''), $chapter->children(1)->plaintext);
