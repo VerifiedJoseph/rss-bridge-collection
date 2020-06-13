@@ -23,10 +23,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 					'Gifts' => 'gifts'
 				)
 			),
-			'l' => array(
-				'name' => 'Limit number of tags',
-				'type' => 'checkbox'
-			)
 		),
 		'Series' => array(
 			's' => array(
@@ -35,10 +31,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'required' => true,
 				'title' => 'Series ID',
 			),
-			'l' => array(
-				'name' => 'Limit number of tags',
-				'type' => 'checkbox'
-			)
 		),
 		'Tag' => array(
 			't' => array(
@@ -47,10 +39,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'required' => true,
 				'title' => 'Tag',
 			),
-			'l' => array(
-				'name' => 'Limit number of tags',
-				'type' => 'checkbox'
-			)
 		),
 		'Chapters' => array(
 			'w' => array(
@@ -60,6 +48,13 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'title' => 'Work ID',
 			),
 		),
+		'global' => array(
+			'l' => array(
+				'title' => 'Limits number of tags to 15',
+				'name' => 'Limit number of tags',
+				'type' => 'checkbox'
+			)
+		)
 	);
 
 	const CACHE_TIMEOUT = 3600;
