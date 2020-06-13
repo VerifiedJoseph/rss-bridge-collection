@@ -143,7 +143,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		// Feed for works of a specific tag.
 		if ($this->queriedContext === 'Tag') {
-			$TagTitle = $html->find('h2.heading', 0)->children(0)->plaintext;
+			$TagTitle = htmlspecialchars_decode($html->find('h2.heading', 0)->children(0)->plaintext, ENT_QUOTES);
 			$this->feedName = $TagTitle . ' - Tag';
 
 			foreach($html->find('li.work.blurb.group') as $work) {
@@ -207,7 +207,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 					. $this->getInput('s'); 
 			case 'Tag': 
 				return self::URI . '/tags/' 
-					. $this->getInput('t') . '/works'; 
+					. rawurlencode($this->getInput('t')) . '/works'; 
 			case 'Chapters': 
 				return self::URI . '/works/' 
 					. $this->getInput('w') . '/navigate'; 
