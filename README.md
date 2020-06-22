@@ -18,7 +18,6 @@ View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author
 RSS Bridges I've written that are ***not*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 
 - [ArchiveofOurOwn](bridges/ArchiveofOurOwnBridge.php) - Returns fanfiction by user, series, tag, or chapters.
-- [HaveIBeenPwnedApi](bridges/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email addrees.
 - [TzAnnounceArchive](bridges/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
 - [PhpDotNet](bridges/PhpDotNetBridge.php) - Returns news posts from php.net
 - [Vice.com Topics](bridges/ViceTopicBridge.php) - Returns the newest posts for a topic from multiple vice.com editions.
@@ -26,8 +25,14 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [LGBTQ Nation](bridges/LgbtqNationBridge.php) - Returns newest articles by category, tag or author.
 - [Apache Friends](bridges/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
 - [The Guardian Cartoons](bridges/TheGuardianCartoonsBridge.php) - Returns the newest cartoons from The Guardian.
-- [Full Fact Election Live](bridges/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
 - [CA Certificate Extract](bridges/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
+
+---
+
+Archive:
+
+- [HaveIBeenPwnedApi](archive/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email addrees.
+- [Full Fact Election Live](archive/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
 
 ## License
 
