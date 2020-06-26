@@ -88,6 +88,7 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 			$xml = new SimpleXMLElement($feed);
 
 			foreach ($xml->channel->item as $feedItem) {
+				$ns = $feedItem->getNamespaces(true);
 				$item = array();
 
 				$guid = (string)$feedItem->guid;
@@ -100,29 +101,32 @@ es_latam, de_at, be, pt_br, fr, fr_be, de, gr, id_id, it, jp, nl, pt, ar',
 				$this->addToCache($guid, $edition);
 
 				$item['title'] = (string)$feedItem->title;
-				$item['content'] = (string)$feedItem->children('content', true);
+				$item['content'] = (string)$feedItem->children($ns['content']);
 				$item['timestamp'] = strtotime((string)$feedItem->pubDate);
-				$item['categories'] = (array)$feedItem->category;
+				$item['categories'][] = $edition;
 
-				array_unshift($item['categories'], $edition);
+				foreach ($feedItem->category as $category) {
+					$item['categories'][] = htmlspecialchars($category, ENT_QUOTES);
+				}
 
 				$item['uid'] = $guid;
 				$item['uri'] = (string)$feedItem->link;
 				$item['enclosures'] = array((string)$feedItem->enclosure['url']);
 
-				$a = (array)$feedItem->children('dc', true);
+				$author = (array)$feedItem->children($ns['dc'])->creator;
 
-				if (is_array($a['creator'])) {
-					$item['author'] = implode(', ', array_unique($a['creator']));
+				if (is_array($author)) {
+					$item['author'] = implode(', ', array_unique($author));
 				}
 
-				if (is_string($a['creator'])) {
-					$item['author'] = $a['creator'];
+				if (is_string($author)) {
+					$item['author'] = $a;
 				}
 
 				$this->items[] = $item;
 			}
 		}
+
 		$this->orderItems();
 		$this->saveCache();
 	}
