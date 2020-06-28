@@ -62,7 +62,7 @@ class BBCProgrammesBridge extends BridgeAbstract {
 			$item['title'] = $programmeTitle . '(' . $duration . ')';
 
 			$item['content'] = <<<EOD
-<img src="{$image}"><hr>Published: {$date} - Duration: {$duration} - {$availability}<hr>{$description}
+<a title="Watch on iPlayer" href="{$programmePath}"><img src="{$image}"></a><hr>Published: {$date} - Duration: {$duration} - {$availability}<hr>{$description}<br/>
 EOD;
 
 			$item['timestamp'] = $date;
