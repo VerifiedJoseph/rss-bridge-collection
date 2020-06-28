@@ -42,12 +42,12 @@ class BBCProgrammesBridge extends BridgeAbstract {
 			foreach ($json->episode->synopses as $size => $synopse) {
 
 				if ($size === 'large') {
-					$description = $synopse;
+					$description = nl2br($synopse);
 					break;
 				}
 
 				if ($size === 'medium') {
-					$description = $synopse;
+					$description = nl2br($synopse);
 					break;
 				}
 
