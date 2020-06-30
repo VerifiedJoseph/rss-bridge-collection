@@ -64,14 +64,13 @@ class LgbtqNationBridge extends FeedExpander {
 	}
 
 	public function getURI() {
-
 		switch($this->queriedContext) {
 			case 'By Category': 
 				return self::URI . '/' . $this->getInput('c');
 			case 'By Tag': 
 				return self::URI . '/tag/' . $this->getInput('t');
 			case 'By Author': 
-				return self::URI . '/author/' . $this->getInput('t');
+				return self::URI . '/author/' . $this->getInput('a');
 			default: return parent::getURI();
 		}
 	}
