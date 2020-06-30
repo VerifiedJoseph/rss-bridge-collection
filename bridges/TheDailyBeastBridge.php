@@ -2,7 +2,7 @@
 class TheDailyBeastBridge extends BridgeAbstract {
 	const NAME = 'The Daily Beast Bridge';
 	const URI = 'https://www.thedailybeast.com';
-	const DESCRIPTION = 'Returns newest articles by category or keyword';
+	const DESCRIPTION = 'Returns newest articles by category, keyword or author';
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array(
 		'By Category' => array(
