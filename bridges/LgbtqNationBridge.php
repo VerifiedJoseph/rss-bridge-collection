@@ -60,7 +60,23 @@ class LgbtqNationBridge extends FeedExpander {
 
 		return null;
 	}
-	
+
+	public function collectData() {
+		$this->collectExpandableDatas($this->getURI() . '/feed/', 10);
+	}
+
+	public function getURI() {
+		switch($this->queriedContext) {
+			case 'By Category': 
+				return self::URI . '/' . $this->getInput('c');
+			case 'By Tag': 
+				return self::URI . '/tag/' . $this->getInput('t');
+			case 'By Author': 
+				return self::URI . '/author/' . $this->getInput('a');
+			default: return parent::getURI();
+		}
+	}
+
 	protected function parseItem($item) {
 		$item = parent::parseItem($item);
 
@@ -85,21 +101,5 @@ class LgbtqNationBridge extends FeedExpander {
 		}
 
 		return $item;
-	}
-
-	public function collectData() {
-		$this->collectExpandableDatas($this->getURI() . '/feed/', 10);
-	}
-
-	public function getURI() {
-		switch($this->queriedContext) {
-			case 'By Category': 
-				return self::URI . '/' . $this->getInput('c');
-			case 'By Tag': 
-				return self::URI . '/tag/' . $this->getInput('t');
-			case 'By Author': 
-				return self::URI . '/author/' . $this->getInput('a');
-			default: return parent::getURI();
-		}
 	}
 }
