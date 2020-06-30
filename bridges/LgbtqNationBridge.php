@@ -33,6 +33,34 @@ class LgbtqNationBridge extends FeedExpander {
 
 	const CACHE_TIMEOUT = 1800; // 30 minutes
 
+	private $categoryUrlRegex = '/lgbtqnation\.com\/([\w-]+)\//';
+	private $tagUrlRegex = '/lgbtqnation\.com\/tag\/([\w-]+)/';
+	private $authorUrlRegex = '/lgbtqnation\.com\/author\/([\w-]+)/';
+
+	public function detectParameters($url) {
+		$params = array();
+
+		if(preg_match($this->tagUrlRegex, $url, $matches)) {
+			$params['context'] = 'By Tag';
+			$params['t'] = $matches[1];
+			return $params;
+		}
+
+		if(preg_match($this->authorUrlRegex, $url, $matches)) {
+			$params['context'] = 'By Author';
+			$params['a'] = $matches[1];
+			return $params;
+		}
+
+		if(preg_match($this->categoryUrlRegex, $url, $matches)) {
+			$params['context'] = 'By Category';
+			$params['c'] = $matches[1];
+			return $params;
+		}
+
+		return null;
+	}
+	
 	protected function parseItem($item) {
 		$item = parent::parseItem($item);
 
