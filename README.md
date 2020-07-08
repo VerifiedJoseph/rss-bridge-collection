@@ -26,6 +26,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [Apache Friends](bridges/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
 - [The Guardian Cartoons](bridges/TheGuardianCartoonsBridge.php) - Returns the newest cartoons from The Guardian.
 - [CA Certificate Extract](bridges/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
+- [Signal](bridges/SignalBridge.php) - Returns the newest posts from Signal\'s blog.
 
 ---
 
