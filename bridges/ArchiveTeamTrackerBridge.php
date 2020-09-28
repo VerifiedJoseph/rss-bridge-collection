@@ -17,7 +17,11 @@ class ArchiveTeamTrackerBridge extends BridgeAbstract {
 		foreach ($data->projects as $project) {
 			$item = array();
 			$item['title'] = $project->title;
-			$item['uri'] = $project->leaderboard;
+
+			if (isset($project->leaderboard)) {
+				$item['uri'] = $project->leaderboard;	
+			}
+
 			$item['enclosures'][] = $project->logo;
 			$item['content'] = <<<EOD
 <p>{$project->description}</p>
