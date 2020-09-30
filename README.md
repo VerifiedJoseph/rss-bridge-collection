@@ -20,7 +20,6 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 
 - [ArchiveofOurOwn](bridges/ArchiveofOurOwnBridge.php) - Returns fanfiction by user, series, tag, or chapters.
 - [TzAnnounceArchive](bridges/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
-- [PhpDotNet](bridges/PhpDotNetBridge.php) - Returns news posts from php.net
 - [The Daily Beast](bridges/TheDailyBeastBridge.php) - Returns newest articles (summary only) by category, keyword or author.
 - [LGBTQ Nation](bridges/LgbtqNationBridge.php) - Returns newest articles by category, tag or author.
 - [Apache Friends](bridges/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
@@ -37,6 +36,7 @@ Archive (Bridges that are no longer maintained):
 - [HaveIBeenPwnedApi](archive/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email addrees.
 - [Full Fact Election Live](archive/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
 - [Vice.com Topics](bridges/ViceTopicBridge.php) - Returns the newest posts for a topic from multiple vice.com editions.
+- [PhpDotNet](bridges/PhpDotNetBridge.php) - Returns news posts from php.net
 
 ## License
 
