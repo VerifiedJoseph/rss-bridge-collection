@@ -35,8 +35,8 @@ Archive (Bridges that are no longer maintained):
 
 - [HaveIBeenPwnedApi](archive/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email addrees.
 - [Full Fact Election Live](archive/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
-- [Vice.com Topics](bridges/ViceTopicBridge.php) - Returns the newest posts for a topic from multiple vice.com editions.
-- [PhpDotNet](bridges/PhpDotNetBridge.php) - Returns news posts from php.net
+- [Vice.com Topics](archive/ViceTopicBridge.php) - Returns the newest posts for a topic from multiple vice.com editions.
+- [PhpDotNet](archive/PhpDotNetBridge.php) - Returns news posts from php.net
 
 ## License
 
