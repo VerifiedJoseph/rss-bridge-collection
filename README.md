@@ -32,7 +32,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 
 ---
 
-Archive (Bridges that are no longer maintained or used):
+Archive (Bridges that are no longer maintained):
 
 - [HaveIBeenPwnedApi](archive/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email addrees.
 - [Full Fact Election Live](archive/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
