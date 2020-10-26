@@ -17,9 +17,13 @@ class SignalBridge extends FeedExpander {
 
 		$html = defaultLinkTo($html, $this->getURI());
 
-		$content = $html->find('div.blog-post-content > div.column.is-7', 0);
+		$content = $html->find('div.blog-post-content', 0);
 		$content->find('div.social-sharing', 0)->outertext = '';
 		$item['content'] = $content;
+
+		if ($html->find('meta[property="og:image"]', 0)) {
+			$item['enclosures'][] = $html->find('meta[property="og:image"]', 0)->content;
+		}
 
 		return $item;
 	}
