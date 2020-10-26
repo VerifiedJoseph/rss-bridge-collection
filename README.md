@@ -26,7 +26,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [The Guardian Cartoons](bridges/TheGuardianCartoonsBridge.php) - Returns the newest cartoons from The Guardian.
 - [CA Certificate Extract](bridges/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
 - [BBC Programmes](bridges/BBCProgrammesBridge.php) - Returns programme episodes available on iPlayer.
-- [Signal](bridges/SignalBridge.php) - Returns the newest posts from Signal\'s blog.
+- [Signal](bridges/SignalBridge.php) - Returns newest posts from the Signal Messenger blog.
 - [Archive Team Tracker](bridges/SignalBridge.php) - Returns Archive Team warrior projects.
 
 ---
