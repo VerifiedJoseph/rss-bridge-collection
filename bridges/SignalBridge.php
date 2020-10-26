@@ -1,9 +1,9 @@
 <?php
 class SignalBridge extends FeedExpander {
 
-	const NAME = 'Signal Bridge';
+	const NAME = 'Signal Messenger Bridge';
 	const URI = 'https://signal.org/blog/';
-	const DESCRIPTION = 'Returns the newest posts from Signal\'s blog';
+	const DESCRIPTION = 'Returns newest posts from the Signal Messenger blog';
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array();
 
