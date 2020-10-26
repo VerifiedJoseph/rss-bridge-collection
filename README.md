@@ -27,7 +27,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [CA Certificate Extract](bridges/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
 - [BBC Programmes](bridges/BBCProgrammesBridge.php) - Returns programme episodes available on iPlayer.
 - [Signal](bridges/SignalBridge.php) - Returns newest posts from the Signal Messenger blog.
-- [Archive Team Tracker](bridges/SignalBridge.php) - Returns Archive Team warrior projects.
+- [Archive Team Tracker](bridges/ArchiveTeamTrackerBridge.php) - Returns Archive Team warrior projects.
 
 ---
 
