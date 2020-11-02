@@ -28,6 +28,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [BBC Programmes](bridges/BBCProgrammesBridge.php) - Returns programme episodes available on iPlayer.
 - [Signal](bridges/SignalBridge.php) - Returns newest posts from the Signal Messenger blog.
 - [Archive Team Tracker](bridges/ArchiveTeamTrackerBridge.php) - Returns Archive Team warrior projects.
+- [VirtualBox News](bridges/VirtualBoxNewsBridge.php) - Returns project news.
 
 ---
 
