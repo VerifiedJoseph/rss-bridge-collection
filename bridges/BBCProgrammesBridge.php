@@ -39,21 +39,7 @@ class BBCProgrammesBridge extends BridgeAbstract {
 
 			$json = $this->extractJson($programmePage);
 
-			foreach ($json->episode->synopses as $size => $synopsis) {
-
-				if ($size === 'large') {
-					$description = nl2br($synopsis);
-					break;
-				}
-
-				if ($size === 'medium') {
-					$description = nl2br($synopsis);
-					break;
-				}
-
-				$description = $synopse;
-			}
-
+			$description = $this->getSynopsis($json);
 			$duration = $json->versions[0]->duration->text;
 			$date = $json->versions[0]->firstBroadcast;
 			$availability = $json->versions[0]->availability->remaining->text;
@@ -97,7 +83,7 @@ EOD;
 	private function extractJson($html) {
 		$data = $html->find('script#tvip-script-app-store', 0)->innertext;
 		$data = str_replace('window.__IPLAYER_REDUX_STATE__ = ', '', $data);
-		$data = substr($data, 0, -1);;
+		$data = substr($data, 0, -1);
 
 		$data = json_decode($data);
 
@@ -106,5 +92,17 @@ EOD;
 		}
 
 		return $data;
+	}
+
+	private function getSynopsis($json) {
+		$sizes = array('large', 'medium' , 'small', 'editorial');
+	
+		foreach ($sizes as $size) {
+			if(isset($json->episode->synopses->{$size})) {
+				return nl2br($json->episode->synopses->{$size});
+			}
+		}
+
+		return '';
 	}
 }
