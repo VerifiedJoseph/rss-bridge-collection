@@ -194,7 +194,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	public function getName() {
 
 		if ($this->feedName) {
-			return $this->feedName;
+			return $this->feedName . ' - AO3';
 		}
 
 		return parent::getName();
