@@ -313,7 +313,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		$noNumberFormatting = array('language','words', 'chapters');
 		$stats = '';
 
-		if (($this->queriedContext === 'User Profile' && $this->getInput('c') != 'series') || $this->queriedContext === 'Series') {
+		if (($this->queriedContext === 'User' && $this->getInput('c') != 'series') || $this->queriedContext === 'Series') {
 			$dl = $work->find('dl', 0);
 
 			foreach($dl->find('dd') as $stat) {
