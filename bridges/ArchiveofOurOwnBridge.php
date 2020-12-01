@@ -22,6 +22,11 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 					'Gifts' => 'gifts'
 				)
 			),
+			'l' => array(
+				'title' => 'Limits number of tags to 15',
+				'name' => 'Limit tags',
+				'type' => 'checkbox'
+			)
 		),
 		'Series' => array(
 			's' => array(
@@ -29,6 +34,11 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'type' => 'text',
 				'required' => true,
 			),
+			'l' => array(
+				'title' => 'Limits number of tags to 15',
+				'name' => 'Limit tags',
+				'type' => 'checkbox'
+			)
 		),
 		'Tag' => array(
 			't' => array(
@@ -36,6 +46,11 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'type' => 'text',
 				'required' => true,
 			),
+			'l' => array(
+				'title' => 'Limits number of tags to 15',
+				'name' => 'Limit tags',
+				'type' => 'checkbox'
+			)
 		),
 		'Chapters' => array(
 			'w' => array(
@@ -44,13 +59,6 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				'required' => true,
 			),
 		),
-		'global' => array(
-			'l' => array(
-				'title' => 'Limits number of tags to 15',
-				'name' => 'Limit number of tags',
-				'type' => 'checkbox'
-			)
-		)
 	);
 
 	const CACHE_TIMEOUT = 3600;
@@ -283,8 +291,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	}
 
 	private function processTags($work) {
-		$maxTags = 15;
-		$tagCount = 0;
+		$limit = 15;
 		$tags = array();
 
 		foreach($work->find('ul.tags li') as $tag) {
@@ -292,11 +299,9 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 				continue;
 			}
 
-			$tagCount++;
-
 			$tags[] = htmlspecialchars_decode($tag->find('a', 0)->innertext, ENT_NOQUOTES);
 
-			if ($this->getInput('l') && $tagCount === $maxTags) {
+			if (isset($this->getInput('l')) && count($tags) >= $limit) {
 				break;
 			}
 		}
