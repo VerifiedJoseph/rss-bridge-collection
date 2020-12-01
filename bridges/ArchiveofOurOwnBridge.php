@@ -301,7 +301,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 			$tags[] = htmlspecialchars_decode($tag->find('a', 0)->innertext, ENT_NOQUOTES);
 
-			if (isset($this->getInput('l')) && count($tags) >= $limit) {
+			if ($this->getInput('l') && count($tags) >= $limit) {
 				break;
 			}
 		}
