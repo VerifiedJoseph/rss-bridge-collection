@@ -97,7 +97,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		$html = getSimpleHTMLDOM($this->getURI())
 			or returnServerError('Could not request: ' . $this->getURI());
-		
+
 		// Feed for works, series, bookmarks or gifts from a user's profile.
 		if ($this->queriedContext === 'User Profile') {
 			$content_type = $this->getInput('c');
@@ -201,20 +201,20 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	}
 
 	public function getURI() {
-		
+
 		switch($this->queriedContext) {
-			case 'User Profile': 
-				return self::URI . '/users/' . $this->getInput('u') 
+			case 'User Profile':
+				return self::URI . '/users/' . $this->getInput('u')
 					. $this->userProfile[$this->getInput('c')]['url'];
-			case 'Series': 
-				return self::URI . '/series/' 
-					. $this->getInput('s'); 
-			case 'Tag': 
-				return self::URI . '/tags/' 
-					. rawurlencode($this->getInput('t')) . '/works'; 
-			case 'Chapters': 
-				return self::URI . '/works/' 
-					. $this->getInput('w') . '/navigate'; 
+			case 'Series':
+				return self::URI . '/series/'
+					. $this->getInput('s');
+			case 'Tag':
+				return self::URI . '/tags/'
+					. rawurlencode($this->getInput('t')) . '/works';
+			case 'Chapters':
+				return self::URI . '/works/'
+					. $this->getInput('w') . '/navigate';
 			default: return parent::getURI();
 		}
 	}
@@ -223,7 +223,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 		$heading = $work->find('h4.heading', 0);
 		return htmlspecialchars_decode($heading->find('a', 0)->plaintext, ENT_QUOTES);
 	}
-	
+
 	private function processWorkAuthor($work) {
 		$heading = $work->find('h4.heading', 0);
 		$authors = array();
@@ -234,7 +234,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		return implode(', ', $authors);
 	}
-	
+
 	private function processWorkTimestamp($work) {
 
 		if ($this->getInput('c') === 'bookmarks') {
@@ -243,7 +243,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 
 		return strtotime($work->find('p.datetime', 0)->plaintext);
 	}
-	
+
 	private function processWorkUri($work) {
 		$heading = $work->find('h4.heading', 0);
 		return self::URI . $heading->find('a', 0)->href;
