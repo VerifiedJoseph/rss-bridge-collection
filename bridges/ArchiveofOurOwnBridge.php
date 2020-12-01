@@ -5,7 +5,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	const DESCRIPTION = 'Returns fanfiction by user, series, tag, or chapters.';
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array(
-		'User Profile' => array(
+		'User' => array(
 			'u' => array(
 				'name' => 'username',
 				'type' => 'text',
@@ -99,7 +99,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 			or returnServerError('Could not request: ' . $this->getURI());
 
 		// Feed for works, series, bookmarks or gifts from a user's profile.
-		if ($this->queriedContext === 'User Profile') {
+		if ($this->queriedContext === 'User') {
 			$content_type = $this->getInput('c');
 
 			// Feed name
@@ -203,7 +203,7 @@ class ArchiveofOurOwnBridge extends BridgeAbstract {
 	public function getURI() {
 
 		switch($this->queriedContext) {
-			case 'User Profile':
+			case 'User':
 				return self::URI . '/users/' . $this->getInput('u')
 					. $this->userProfile[$this->getInput('c')]['url'];
 			case 'Series':
