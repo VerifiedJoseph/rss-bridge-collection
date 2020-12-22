@@ -33,6 +33,7 @@ class CaExtractBridge extends BridgeAbstract {
 			$link = $tr->children(0)->find('a', 0)->href;
 
 			$item['title'] = $date . ' - ' . $certs .'  Certs';
+			$item['uri'] = self::URI;
 			$item['timestamp'] = $date;
 			$item['content'] = '<a href="' . $link . '">' . $link . '</a>';
 
