@@ -84,12 +84,17 @@ class LgbtqNationBridge extends FeedExpander {
 			or returnServerError('Could not request: ' . $item['uri']);
 
 		$content = $articleHtml->find('div.single-body.entry-content', 0);
-		
+
+		// Skip pages missing entry-content
+		if (is_null($articleHtml->find('div.single-body.entry-content', 0))) {
+			return array();
+		}
+
 		foreach ($content->find('script') as $script) {
 			$script->outertext = '';
 		}
 
-		$item['content'] = $content->innertext;
+		$item['content'] = $content;
 		$item['enclosures'][] = $articleHtml->find('meta[property="og:image"]', 0)->content;
 
 		if ($articleHtml->find('div.entry-categories.col-sm-4 > a', 0)) {
