@@ -15,12 +15,12 @@ class SignalVersionUpdatesBridge extends BridgeAbstract {
 		$data = json_decode($response['body']);
 
 		$item['title'] = '5.3.7.1';
-		$item['timestamp'] = $response['headers']['last-modified'];
+		$item['timestamp'] = $response['headers']['Last-Modified'];
 		$item['content'] = <<<EOD
 <strong>Version code</strong>
 <p>{$data->versionCode}</p>
 <strong>Date</strong>
-<p>{$response['headers']['last-modified']}</p>
+<p>{$response['headers']['Last-Modified']}</p>
 <strong>sha256 hash</strong>
 <p>{$data->sha256sum}</p>
 <strong>Download</strong>
