@@ -14,7 +14,7 @@ class SignalVersionUpdatesBridge extends BridgeAbstract {
 		$response = $this->get($this->jsonUrl);;
 		$data = json_decode($response['body']);
 
-		$item['title'] = '5.3.7.1';
+		$item['title'] = $data->versionName;
 		$item['timestamp'] = $response['headers']['Last-Modified'];
 		$item['content'] = <<<EOD
 <strong>Version code</strong>
