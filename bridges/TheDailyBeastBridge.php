@@ -80,7 +80,7 @@ class TheDailyBeastBridge extends BridgeAbstract {
 
 			$item['uri'] = $article->find('a', 0)->href;
 
-			$articleHtml = getSimpleHTMLDOMCached($item['uri'], 3600)
+			$articleHtml = getSimpleHTMLDOMCached($item['uri'], 7200)
 				or returnServerError('Could not request: ' . $item['uri']);
 
 			$item['title'] = $articleHtml->find('meta[property="og:title"]', 0)->content;
@@ -113,7 +113,6 @@ EOD;
 	}
 
 	public function getURI() {
-
 		switch($this->queriedContext) {
 			case 'By Category':
 				return self::URI . '/category/' . $this->getInput('c');
