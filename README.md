@@ -2,15 +2,15 @@
 
 RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 
-- [HaveIBeenPwned](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/HaveIBeenPwnedBridge.php) - Returns list of Pwned websites.
+- [Have I Been Pwned](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/HaveIBeenPwnedBridge.php) - Returns list of Pwned websites.
 - [Brut](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/BrutBridge.php) - Returns the 5 newest videos by category and edition.
-- [SplCenter](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/SplCenterBridge.php) - Returns the newest posts from the Southern Poverty Law Center.
+- [SPL Center](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/SplCenterBridge.php) - Returns the newest posts from the Southern Poverty Law Center.
 - [Telegram](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/TelegramBridge.php) - Returns newest posts from a public Telegram channel.
-- [InternetArchive](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/InternetArchiveBridge.php) - Returns newest uploads, posts and more from an account.
-- [CuriousCat](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/CuriousCatBridge.php) - Returns list of newest questions and answers for a user profile.
-- [ScribdBridge](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/ScribdBridge.php) - Returns documents uploaded by a user.
-- [ASRockNewsBridge](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/ASRockNewsBridge.php) - Returns latest news articles.
-- [WosckerBridge](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/WosckerBridge.php) - Returns news of the day.
+- [Internet Archive](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/InternetArchiveBridge.php) - Returns newest uploads, posts and more from an account.
+- [Curious Cat](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/CuriousCatBridge.php) - Returns list of newest questions and answers for a user profile.
+- [Scribd](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/ScribdBridge.php) - Returns documents uploaded by a user.
+- [ASRock News](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/ASRockNewsBridge.php) - Returns latest news articles.
+- [Woscker](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/WosckerBridge.php) - Returns news of the day.
 - [Firefox Add-ons](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/FirefoxAddonsBridge.php) - Returns version history for a Firefox Add-on.
 - [Docker Hub](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/DockerhubBridge.php) - Returns new images for a container.
 
@@ -20,7 +20,7 @@ View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author
 
 RSS Bridges I've written that are ***not*** included in the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project:
 
-- [ArchiveofOurOwn](bridges/ArchiveofOurOwnBridge.php) - Returns fanfiction by user, series, tag, or chapters.
+- [Archive of Our Own](bridges/ArchiveofOurOwnBridge.php) - Returns fanfiction by user, series, tag, or chapters.
 - [TzAnnounceArchive](bridges/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
 - [The Daily Beast](bridges/TheDailyBeastBridge.php) - Returns newest articles (summary only) by category, keyword or author.
 - [LGBTQ Nation](bridges/LgbtqNationBridge.php) - Returns newest articles by category, tag or author.
