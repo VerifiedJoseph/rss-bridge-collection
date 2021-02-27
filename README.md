@@ -12,7 +12,7 @@ RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge]
 - [ASRock News](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/ASRockNewsBridge.php) - Returns latest news articles.
 - [Woscker](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/WosckerBridge.php) - Returns news of the day.
 - [Firefox Add-ons](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/FirefoxAddonsBridge.php) - Returns version history for a Firefox Add-on.
-- [Docker Hub](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/DockerhubBridge.php) - Returns new images for a container.
+- [Docker Hub](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/DockerHubBridge.php) - Returns new images for a container.
 
 View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) or [pull requests](https://github.com/RSS-Bridge/rss-bridge/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3AVerifiedJoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
 
