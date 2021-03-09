@@ -15,6 +15,7 @@ class SignalVersionUpdatesBridge extends BridgeAbstract {
 		$data = json_decode($response['body']);
 
 		$item['title'] = $data->versionName;
+		$item['uid'] = $data->sha256sum;
 		$item['timestamp'] = $response['headers']['Last-Modified'];
 		$item['content'] = <<<EOD
 <strong>Version code</strong>
