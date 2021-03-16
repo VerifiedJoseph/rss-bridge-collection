@@ -80,7 +80,7 @@ class LgbtqNationBridge extends FeedExpander {
 	protected function parseItem($item) {
 		$item = parent::parseItem($item);
 
-		$articleHtml = getSimpleHTMLDOMCached($item['uri'], 3600)
+		$articleHtml = getSimpleHTMLDOMCached($item['uri'], 7200)
 			or returnServerError('Could not request: ' . $item['uri']);
 
 		$content = $articleHtml->find('div.single-body.entry-content', 0);
