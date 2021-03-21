@@ -131,8 +131,4 @@ EOD;
 
 		return parent::getName();
 	}
-
-	public function getIcon() {
-		return 'https://www.thedailybeast.com/static/b30a79ed230b726a0470067d49631937.ico';
-	}
 }
