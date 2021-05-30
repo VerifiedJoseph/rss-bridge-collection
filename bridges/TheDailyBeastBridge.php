@@ -2,7 +2,7 @@
 class TheDailyBeastBridge extends BridgeAbstract {
 	const NAME = 'The Daily Beast Bridge';
 	const URI = 'https://www.thedailybeast.com';
-	const DESCRIPTION = 'Returns newest articles (summary only) by category, keyword or author';
+	const DESCRIPTION = 'Returns newest articles (summary only)';
 	const MAINTAINER = 'VerifiedJoseph';
 	const PARAMETERS = array(
 		'By Category' => array(
@@ -11,6 +11,14 @@ class TheDailyBeastBridge extends BridgeAbstract {
 				'type' => 'text',
 				'required' => true,
 				'exampleValue' => 'us-news',
+			),
+		),
+		'By Franchise' => array(
+			'f' => array(
+				'name' => 'franchise',
+				'type' => 'text',
+				'required' => true,
+				'exampleValue' => 'coronavirus',
 			),
 		),
 		'By Keyword' => array(
@@ -34,6 +42,7 @@ class TheDailyBeastBridge extends BridgeAbstract {
 	const CACHE_TIMEOUT = 3600; // 1 hour
 
 	private $categoryUrlRegex = '/thedailybeast\.com\/category\/([\w-]+)/';
+	private $franchiseUrlRegex = '/thedailybeast\.com\/franchise\/([\w-]+)/';
 	private $keywordUrlRegex = '/thedailybeast\.com\/keyword\/([\w-]+)/';
 	private $authorUrlRegex = '/thedailybeast\.com\/author\/([\w-]+)/';
 
@@ -44,6 +53,12 @@ class TheDailyBeastBridge extends BridgeAbstract {
 
 		if(preg_match($this->categoryUrlRegex, $url, $matches)) {
 			$params['context'] = 'By Category';
+			$params['c'] = $matches[1];
+			return $params;
+		}
+
+		if(preg_match($this->franchiseUrlRegex, $url, $matches)) {
+			$params['context'] = 'By Franchise';
 			$params['c'] = $matches[1];
 			return $params;
 		}
@@ -71,7 +86,7 @@ class TheDailyBeastBridge extends BridgeAbstract {
 			$this->feedName = $html->find('h2.WrapHeader__title', 0)->plaintext;
 		}
 
-		if ($html->find('h4.Byline__name', 0)) { // By Author
+		if ($html->find('h4.Byline__name', 0)) {
 			$this->feedName = $html->find('h4.Byline__name', 0)->plaintext;
 		}
 
@@ -116,6 +131,8 @@ EOD;
 		switch($this->queriedContext) {
 			case 'By Category':
 				return self::URI . '/category/' . $this->getInput('c');
+			case 'By Franchise':
+				return self::URI . '/franchise/' . $this->getInput('f');
 			case 'By Keyword':
 				return self::URI . '/keyword/' . $this->getInput('k');
 			case 'By Author':
