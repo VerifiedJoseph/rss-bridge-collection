@@ -59,7 +59,7 @@ class TheDailyBeastBridge extends BridgeAbstract {
 
 		if(preg_match($this->franchiseUrlRegex, $url, $matches)) {
 			$params['context'] = 'By Franchise';
-			$params['c'] = $matches[1];
+			$params['f'] = $matches[1];
 			return $params;
 		}
 
