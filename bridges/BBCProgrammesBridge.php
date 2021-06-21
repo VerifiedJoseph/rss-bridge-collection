@@ -22,7 +22,7 @@ class BBCProgrammesBridge extends BridgeAbstract {
 		$html = getSimpleHTMLDOM($this->getURI())
 			or returnServerError('Could not request: ' . $this->getURI());
 
-		$this->feedName = $html->find('div[class="br-masthead__title"]', 0)->plaintext;
+		$this->feedName = trim($html->find('div[class="br-masthead__title"]', 0)->plaintext);
 
 		$results = $html->find('div.br-box-page.programmes-page', 0);
 		foreach($results->find('div.programme.programme--tv') as $index => $div) {
