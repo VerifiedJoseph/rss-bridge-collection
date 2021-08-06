@@ -34,6 +34,7 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [Signal](bridges/SignalBridge.php) - Returns newest posts from the Signal Messenger blog.
 - [Archive Team Tracker](bridges/ArchiveTeamTrackerBridge.php) - Returns Archive Team warrior projects.
 - [VirtualBox News](bridges/VirtualBoxNewsBridge.php) - Returns project news.
+- [Signal Version Updates](bridges/SignalVersionUpdatesBridge.php) - 
 - [GitHub Desktop](bridges/GitHubDesktopBridge.php) - Returns release notes for GitHub Desktop.
 - [Cyberduck Changelog](bridges/CyberDuckChangeLogBridge.php) - Returns release notes for Cyberduck.
 
