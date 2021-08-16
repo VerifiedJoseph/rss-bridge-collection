@@ -17,6 +17,7 @@ RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge]
 - [Wallmine News](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/WallmineNewsBridge.php) - Returns financial news.
 - [The Far Side](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/TheFarSideBridge.php) - Returns the daily dose.
 - [Codeberg](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/CodebergBridge.php) - Returns commits, issues, pull requests or releases for a repository.
+- [Openly News](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/OpenlyBridge.php) - Returns news articles.
 
 View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) or [pull requests](https://github.com/RSS-Bridge/rss-bridge/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3AVerifiedJoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
 
