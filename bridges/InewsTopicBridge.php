@@ -96,7 +96,8 @@ class InewsTopicBridge extends FeedExpander {
 		foreach ($html->find('figure.inews__shortcode-readmore') as $figure) {
 			$figure->find('div', 0)->outertext = '';
 			$figure->find('h4', 0)->outertext = '';
-			$figure->find('p', 0)->outertext = 'Read more: ' . $figure->find('a', 0);
+			$figure->find('p', 0)->outertext = '<strong>Read more:</strong> ' . $figure->find('a', 0);
+			$figure->outertext = $figure->find('p', 0);
 		}
 
 		return $html;
