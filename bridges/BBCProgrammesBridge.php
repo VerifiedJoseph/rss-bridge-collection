@@ -19,13 +19,14 @@ class BBCProgrammesBridge extends BridgeAbstract {
 	private $feedName = '';
 
 	public function collectData() {
+		echo $this->getURI();
+
 		$html = getSimpleHTMLDOM($this->getURI())
 			or returnServerError('Could not request: ' . $this->getURI());
 
 		$this->feedName = trim($html->find('div[class="br-masthead__title"]', 0)->plaintext);
 
-		$results = $html->find('div.br-box-page.programmes-page', 0);
-		foreach($results->find('div.programme.programme--tv') as $index => $div) {
+		foreach($html->find('ol.highlight-box-wrapper > div') as $index => $div) {
 			$item = array();
 
 			$programmeId = $div->attr['data-pid'];
