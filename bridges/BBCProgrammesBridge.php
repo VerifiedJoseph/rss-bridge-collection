@@ -19,8 +19,6 @@ class BBCProgrammesBridge extends BridgeAbstract {
 	private $feedName = '';
 
 	public function collectData() {
-		echo $this->getURI();
-
 		$html = getSimpleHTMLDOM($this->getURI())
 			or returnServerError('Could not request: ' . $this->getURI());
 
