@@ -97,6 +97,17 @@ class InewsTopicBridge extends FeedExpander {
 			$figure->find('div', 0)->outertext = '';
 			$figure->find('h4', 0)->outertext = '';
 			$figure->outertext = '<p><strong>Read more:</strong> ' . $figure->find('a', 0) . '</p>';
+			//$figure->outertext = '';
+		}
+
+		foreach ($html->find('figure.inews__shortcode-readmoreauto') as $figure) {
+			$related = ''; 
+
+			foreach ($figure->find('a') as $a) {
+				$related = '<a href="' . $a->href . '">' .  $a->find('span.inews__shortcode-readmoreauto_post_text_title', 0)->plaintext . '</a>';
+			}
+
+			$figure->outertext = $related;
 		}
 
 		return $html;
