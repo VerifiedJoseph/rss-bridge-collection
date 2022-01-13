@@ -14,14 +14,16 @@ class SignalVersionUpdatesBridge extends BridgeAbstract {
 		$response = $this->get($this->jsonUrl);;
 		$data = json_decode($response['body']);
 
+		$lastModifiedDate = $response['headers']['last-modified'];
+
 		$item['title'] = $data->versionName;
 		$item['uid'] = $data->sha256sum;
-		$item['timestamp'] = $response['headers']['Last-Modified'];
+		$item['timestamp'] = $lastModifiedDate;
 		$item['content'] = <<<EOD
 <strong>Version code</strong>
 <p>{$data->versionCode}</p>
 <strong>Date</strong>
-<p>{$response['headers']['Last-Modified']}</p>
+<p>{$lastModifiedDate}</p>
 <strong>sha256 hash</strong>
 <p>{$data->sha256sum}</p>
 <strong>Download</strong>
