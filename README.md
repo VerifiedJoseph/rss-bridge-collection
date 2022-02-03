@@ -39,6 +39,9 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [Signal Version Updates](bridges/SignalVersionUpdatesBridge.php) - Returns version updates for Signal.
 - [GitHub Desktop](bridges/GitHubDesktopBridge.php) - Returns release notes for GitHub Desktop.
 - [Cyberduck Changelog](bridges/CyberDuckChangeLogBridge.php) - Returns release notes for Cyberduck.
+- [INews Topics](bridges/InewsTopicBridge.php) - Returns newest articles from multiple topics.
+- [GoAccess](bridges/GoAccessBridge.php) - Returns release notes for GoAccess.
+- [Joplin Server Changelog](bridges/JoplinServerChangeLogBridge.php) - Returns release notes for Joplin Server.
 
 ---
 
