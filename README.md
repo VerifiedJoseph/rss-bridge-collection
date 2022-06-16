@@ -18,6 +18,11 @@ RSS Bridges I've written or maintain that ***are*** included in the [rss-bridge]
 - [The Far Side](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/TheFarSideBridge.php) - Returns the daily dose.
 - [Codeberg](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/CodebergBridge.php) - Returns commits, issues, pull requests or releases for a repository.
 - [Openly News](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/OpenlyBridge.php) - Returns news articles.
+- [Killed By Google](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/KilledbyGoogleBridge.php) - Returns list of recently discontinued Google services.
+- [Bandcamp Daily](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/BandcampDailyBridge.php) - Returns newest articles.
+- [YouTube Community Tab](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/YouTubeCommunityTabBridge.php) - Returns posts from a channel's community tab.
+- [Associated Press](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/AssociatedPressNewsBridge.php) - Returns newest articles by topic.
+- [Uber Newsroom](https://github.com/RSS-Bridge/rss-bridge/blob/master/bridges/UberNewsroomBridge.php) - Returns news posts
 
 View my [commit history](https://github.com/RSS-Bridge/rss-bridge/commits?author=verifiedjoseph) or [pull requests](https://github.com/RSS-Bridge/rss-bridge/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3AVerifiedJoseph) for the [rss-bridge](https://github.com/RSS-Bridge/rss-bridge) project.
 
