@@ -90,6 +90,11 @@ class LgbtqNationBridge extends FeedExpander {
 			return array();
 		}
 
+		// Remove newsletter signup
+		if ($articleHtml->find('div.sidebar-newsletter-prompt', 0)) {
+			$articleHtml->find('div.sidebar-newsletter-prompt', 0)->outertext = '';
+		}
+
 		foreach ($content->find('script') as $script) {
 			$script->outertext = '';
 		}
