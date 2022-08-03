@@ -80,9 +80,7 @@ class LgbtqNationBridge extends FeedExpander {
 	protected function parseItem($item) {
 		$item = parent::parseItem($item);
 
-		$articleHtml = getSimpleHTMLDOMCached($item['uri'], 7200)
-			or returnServerError('Could not request: ' . $item['uri']);
-
+		$articleHtml = getSimpleHTMLDOMCached($item['uri'], 7200);
 		$content = $articleHtml->find('div.single-body.entry-content', 0);
 
 		// Skip pages missing entry-content
@@ -102,13 +100,9 @@ class LgbtqNationBridge extends FeedExpander {
 		$item['content'] = $content;
 		$item['enclosures'][] = $articleHtml->find('meta[property="og:image"]', 0)->content;
 
-		if ($articleHtml->find('div.entry-categories.col-sm-4 > a', 0)) {
-			$item['categories'][] = $articleHtml->find('div.entry-categories.col-sm-4 > a', 0)->plaintext;
-		}
-
-		foreach ($articleHtml->find('div.entry-tags.col-sm-8 > a') as $a) {
-			$item['categories'][] = htmlspecialchars($a->plaintext);
-		}
+		$item['categories'] = array_map('trim', 
+			explode(',', $articleHtml->find('meta[property="article:tags"]', 0)->content)
+		);
 
 		return $item;
 	}
