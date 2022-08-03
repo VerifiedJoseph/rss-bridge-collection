@@ -80,17 +80,17 @@ class LgbtqNationBridge extends FeedExpander {
 	protected function parseItem($item) {
 		$item = parent::parseItem($item);
 
-		$articleHtml = getSimpleHTMLDOMCached($item['uri'], 7200);
-		$content = $articleHtml->find('div.single-body.entry-content', 0);
+		$html = getSimpleHTMLDOMCached($item['uri'], 7200);
+		$content = $html->find('div.single-body.entry-content', 0);
 
 		// Skip pages missing entry-content
-		if (is_null($articleHtml->find('div.single-body.entry-content', 0))) {
+		if (is_null($html->find('div.single-body.entry-content', 0))) {
 			return array();
 		}
 
 		// Remove newsletter signup
-		if ($articleHtml->find('div.sidebar-newsletter-prompt', 0)) {
-			$articleHtml->find('div.sidebar-newsletter-prompt', 0)->outertext = '';
+		if ($html->find('div.sidebar-newsletter-prompt', 0)) {
+			$html->find('div.sidebar-newsletter-prompt', 0)->outertext = '';
 		}
 
 		foreach ($content->find('script') as $script) {
@@ -98,10 +98,10 @@ class LgbtqNationBridge extends FeedExpander {
 		}
 
 		$item['content'] = $content;
-		$item['enclosures'][] = $articleHtml->find('meta[property="og:image"]', 0)->content;
+		$item['enclosures'][] = $html->find('meta[property="og:image"]', 0)->content;
 
 		$item['categories'] = array_map('trim', 
-			explode(',', $articleHtml->find('meta[property="article:tags"]', 0)->content)
+			explode(',', $html->find('meta[property="article:tags"]', 0)->content)
 		);
 
 		return $item;
