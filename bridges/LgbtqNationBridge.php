@@ -100,9 +100,11 @@ class LgbtqNationBridge extends FeedExpander {
 		$item['content'] = $content;
 		$item['enclosures'][] = $html->find('meta[property="og:image"]', 0)->content;
 
-		$item['categories'] = array_map('trim', 
-			explode(',', $html->find('meta[property="article:tags"]', 0)->content)
-		);
+		if ($html->find('meta[property="article:tags"]', 0)) {
+			$item['categories'] = array_map('trim', 
+				explode(',', $html->find('meta[property="article:tags"]', 0)->content)
+			);
+		}
 
 		return $item;
 	}
