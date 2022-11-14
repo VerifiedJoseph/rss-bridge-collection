@@ -33,7 +33,6 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [Archive of Our Own](bridges/ArchiveofOurOwnBridge.php) - Returns fanfiction by user, series, tag, or chapters.
 - [The Daily Beast](bridges/TheDailyBeastBridge.php) - Returns newest articles (summary only) by category, keyword or author.
 - [LGBTQ Nation](bridges/LgbtqNationBridge.php) - Returns newest articles by category, tag or author.
-- [Apache Friends](bridges/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
 - [The Guardian Cartoons](bridges/TheGuardianCartoonsBridge.php) - Returns the newest cartoons from The Guardian.
 - [BBC Programmes](bridges/BBCProgrammesBridge.php) - Returns programme episodes available on iPlayer.
 - [Signal](bridges/SignalBridge.php) - Returns newest posts from the Signal Messenger blog.
@@ -50,12 +49,13 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 
 Archive (Bridges that are no longer maintained):
 
-- [HaveIBeenPwnedApi](archive/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email addrees.
+- [HaveIBeenPwnedApi](archive/HaveIBeenPwnedApiBridge.php) - Returns list of Pwned websites for an email address.
 - [Full Fact Election Live](archive/FullFactElectionLiveBridge.php) - Returns posts from FullFact's Election Live blog.
 - [Vice.com Topics](archive/ViceTopicBridge.php) - Returns the newest posts for a topic from multiple vice.com editions.
 - [PhpDotNet](archive/PhpDotNetBridge.php) - Returns news posts from php.net
-- [CA Certificate Extract](bridges/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
-- [TzAnnounceArchive](bridges/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
+- [CA Certificate Extract](archive/CaExtractBridge.php) - Returns list of Mozilla CA certificate revisions published by curl.haxx.se.
+- [TzAnnounceArchive](archive/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
+- [Apache Friends](archive/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
 
 ## License
 
