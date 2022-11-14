@@ -40,7 +40,6 @@ RSS Bridges I've written that are ***not*** included in the [rss-bridge](https:/
 - [VirtualBox News](bridges/VirtualBoxNewsBridge.php) - Returns project news.
 - [Signal Version Updates](bridges/SignalVersionUpdatesBridge.php) - Returns version updates for Signal.
 - [GitHub Desktop](bridges/GitHubDesktopBridge.php) - Returns release notes for GitHub Desktop.
-- [Cyberduck Changelog](bridges/CyberDuckChangeLogBridge.php) - Returns release notes for Cyberduck.
 - [INews Topics](bridges/InewsTopicBridge.php) - Returns newest articles from multiple topics.
 - [GoAccess](bridges/GoAccessBridge.php) - Returns release notes for GoAccess.
 
@@ -56,6 +55,7 @@ Archive (Bridges that are no longer maintained):
 - [TzAnnounceArchive](archive/TzAnnounceArchiveBridge.php) - Returns Time Zone Database Mailing List.
 - [Apache Friends](archive/ApacheFriendsBridge.php) - Returns newest XAMPP releases.
 - [Joplin Server Changelog](archive/JoplinServerChangeLogBridge.php) - Returns release notes for Joplin Server.
+- [Cyberduck Changelog](archive/CyberDuckChangeLogBridge.php) - Returns release notes for Cyberduck.
 
 ## License
 
