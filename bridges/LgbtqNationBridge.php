@@ -93,6 +93,11 @@ class LgbtqNationBridge extends FeedExpander {
 			$html->find('div.sidebar-newsletter-prompt', 0)->outertext = '';
 		}
 
+		// Remove related stories
+		if ($html->find('div.wp-block-related-links', 0)) {
+			$html->find('div.wp-block-related-links', 0)->outertext = '';
+		}
+
 		foreach ($content->find('script') as $script) {
 			$script->outertext = '';
 		}
